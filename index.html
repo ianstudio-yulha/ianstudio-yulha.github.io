@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이안스튜디오 율하 | 김해 가족사진 전문 스튜디오</title>
+<meta name="description" content="김해 율하 가족사진 전문 스튜디오 이안스튜디오. 가족사진, 바디프로필, 증명·여권사진, 리마인드웨딩, 대가족사진. 1:1 맞춤 보정, 프라이빗 단독 촬영.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #faf8f5;
+    --ink: #2b2b2b;
+    --ink-soft: #5f5952;
+    --accent: #9a8b7a;
+    --line: #ece7e1;
+    --serif: 'Noto Serif KR', serif;
+    --sans: 'Noto Sans KR', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.7;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; max-width: 100%; }
+  a { text-decoration: none; color: inherit; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- 헤더 ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .nav .logo { display: flex; align-items: center; gap: 10px; }
+  .nav .logo img { height: 34px; width: auto; }
+  .nav .logo span { font-family: var(--serif); font-size: 1.05rem; letter-spacing: 0.02em; }
+  .nav ul { display: flex; gap: 28px; list-style: none; }
+  .nav ul a {
+    font-size: 0.88rem; color: #4a463f;
+    transition: color 0.2s;
+  }
+  .nav ul a:hover { color: var(--ink); }
+  .nav .cta {
+    background: var(--ink); color: #fff !important;
+    padding: 9px 20px; border-radius: 999px; font-size: 0.85rem;
+  }
+  .nav .cta:hover { background: #000; }
+
+  /* ---------- 히어로 ---------- */
+  .hero { padding: 88px 0 72px; }
+  .hero-inner {
+    display: grid; grid-template-columns: 5fr 6fr; gap: 56px;
+    align-items: center;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: 2.6rem; font-weight: 600; line-height: 1.45;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero p.sub {
+    margin-top: 22px; color: var(--ink-soft); font-size: 0.98rem;
+    max-width: 40ch;
+  }
+  .hero .btns { margin-top: 34px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero .trust { margin-top: 18px; font-size: 0.84rem; color: var(--accent); font-weight: 400; letter-spacing: 0.01em; }
+
+  /* ---------- 리뷰 이벤트 ---------- */
+  .event { background: var(--bg); padding: 0 0 96px; }
+  .event-banner { max-width: 560px; margin: 0 auto; }
+  .event-banner img { width: 100%; border-radius: 16px; box-shadow: 0 24px 60px rgba(43,43,43,0.1); display: block; }
+  .btn {
+    display: inline-block; padding: 13px 28px; border-radius: 999px;
+    font-size: 0.9rem; font-weight: 500; transition: all 0.2s;
+  }
+  .btn-dark { background: var(--ink); color: #fff; }
+  .btn-dark:hover { background: #000; transform: translateY(-1px); }
+  .btn-outline { border: 1px solid var(--line); color: var(--ink); background: #fff; }
+  .btn-outline:hover { border-color: var(--ink); }
+  .hero figure {
+    position: relative;
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 24px 60px rgba(43,43,43,0.14);
+    aspect-ratio: 4/5;
+    background: #fff;
+  }
+  .hero figure img { width: 100%; height: 100%; object-fit: contain; }
+
+  /* ---------- 공통 섹션 ---------- */
+  section { padding: 88px 0; }
+  .sec-label {
+    font-size: 0.78rem; letter-spacing: 0.18em; color: var(--accent);
+    font-weight: 500; margin-bottom: 12px;
+  }
+  .sec-title {
+    font-family: var(--serif); font-size: 1.9rem; font-weight: 600;
+    line-height: 1.5; letter-spacing: -0.01em;
+  }
+  .sec-desc { margin-top: 14px; color: var(--ink-soft); font-size: 0.95rem; max-width: 60ch; }
+
+  /* ---------- 소개 ---------- */
+  .about { background: var(--bg-soft); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 44px;
+    align-items: start;
+  }
+  .about-text p { color: var(--ink-soft); font-size: 0.96rem; }
+  .about-text p + p { margin-top: 16px; }
+  .features { display: grid; gap: 26px; }
+  .feature { border-bottom: 1px solid var(--line); padding-bottom: 20px; }
+  .feature h3 { font-family: var(--serif); font-size: 1.06rem; font-weight: 600; }
+  .feature p { margin-top: 6px; color: var(--ink-soft); font-size: 0.88rem; }
+
+  /* ---------- 촬영 메뉴 ---------- */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px;
+  }
+  .service {
+    border: 1px solid var(--line); border-radius: 14px; padding: 30px 26px 26px;
+    transition: all 0.25s; background: #fff;
+    display: flex; flex-direction: column;
+  }
+  .service:hover { box-shadow: 0 14px 40px rgba(43,43,43,0.08); transform: translateY(-3px); }
+  .service .num { font-family: var(--serif); color: var(--accent); font-size: 0.82rem; letter-spacing: 0.1em; }
+  .service h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; margin-top: 10px; }
+  .service p { margin-top: 8px; color: var(--ink-soft); font-size: 0.88rem; }
+  .service .more {
+    margin-top: auto; padding-top: 18px; font-size: 0.82rem; color: var(--accent);
+    letter-spacing: 0.02em; font-weight: 400;
+  }
+  .service .more:hover { color: var(--ink); }
+
+  /* 스냅 강조 배너 */
+  .snap-banner {
+    margin-top: 18px;
+    border: 1px solid var(--line); border-radius: 14px;
+    padding: 36px 38px; background: var(--bg-soft);
+    display: flex; align-items: center; justify-content: space-between; gap: 28px;
+    flex-wrap: wrap;
+  }
+  .snap-banner .num { font-family: var(--serif); color: var(--accent); font-size: 0.82rem; letter-spacing: 0.1em; }
+  .snap-banner h3 { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; margin-top: 10px; }
+  .snap-banner p { margin-top: 10px; color: var(--ink-soft); font-size: 0.92rem; max-width: 56ch; }
+  .snap-banner .btn { white-space: nowrap; }
+
+  /* ---------- 갤러리 ---------- */
+  .gallery { background: var(--bg-soft); }
+  .gallery-tabs { display: flex; gap: 8px; margin-top: 36px; flex-wrap: wrap; }
+  .gtab {
+    border: 1px solid var(--line); background: #fff;
+    padding: 9px 22px; border-radius: 999px;
+    font-family: var(--sans); font-size: 0.88rem; font-weight: 400; color: var(--ink-soft);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .gtab:hover { color: var(--ink); }
+  .gtab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .gallery-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px;
+  }
+  .gallery-grid figure {
+    border-radius: 12px; overflow: hidden; aspect-ratio: 4/5;
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
+  .gallery-grid img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center 30%;
+    transition: transform 0.45s ease;
+  }
+  .gallery-grid figure:hover img { transform: scale(1.04); }
+
+  /* ---------- 인스타 피드 ---------- */
+  .insta-feed { background: var(--bg); }
+  .insta-group { margin-top: 40px; }
+  .insta-group h3 { font-family: var(--serif); font-size: 1.08rem; font-weight: 600; margin-bottom: 16px; }
+  .insta-group h3 a { color: var(--accent); font-weight: 400; font-size: 0.92rem; font-family: var(--sans); }
+  .insta-group h3 a:hover { color: var(--ink); }
+  .insta-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+  .insta-grid a { border-radius: 10px; overflow: hidden; aspect-ratio: 1; display: block; }
+  .insta-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+  .insta-grid a:hover img { transform: scale(1.05); }
+
+  /* ---------- 촬영 준비사항 ---------- */
+  .prep { background: var(--bg-soft); }
+  .prep-image { margin-top: 36px; max-width: 520px; }
+  .prep-image img { width: 100%; border-radius: 16px; box-shadow: 0 20px 50px rgba(43,43,43,0.08); }
+
+  /* ---------- 가격 ---------- */
+  .price-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px;
+  }
+  .price-col {
+    border: 1px solid var(--line); border-radius: 16px;
+    padding: 34px 32px 26px; background: #fff;
+    display: flex; flex-direction: column;
+  }
+  .price-col h3 { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; margin-bottom: 6px; }
+  .price-col h3 em.sub { font-size: 0.8rem; color: var(--accent); font-style: normal; font-family: var(--sans); font-weight: 400; }
+  .price-item { padding: 15px 0; border-top: 1px solid var(--line); }
+  .price-item:first-of-type { border-top: none; }
+  .price-item .p-head {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+    font-size: 0.98rem; font-weight: 400;
+  }
+  .price-item .p-head em { font-style: normal; color: var(--ink-soft); font-size: 0.82rem; margin-left: 4px; }
+  .price-item .price { font-family: var(--serif); font-weight: 600; white-space: nowrap; }
+  .price-item p { margin-top: 5px; color: var(--ink-soft); font-size: 0.83rem; }
+  .price-item.hot { background: var(--bg-soft); border-radius: 12px; padding: 15px 14px; margin: 0 -6px; }
+  .badge {
+    display: inline-block; background: var(--accent); color: #fff;
+    font-size: 0.66rem; padding: 2px 9px; border-radius: 999px;
+    margin-left: 8px; vertical-align: 2px; font-weight: 500;
+    font-family: var(--sans); letter-spacing: 0.05em;
+  }
+  .price-cta { margin-top: 26px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .price-call { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--line); color: var(--ink); font-size: 0.88rem; font-weight: 400; }
+  .price-note { margin-top: 18px; color: var(--ink-soft); font-size: 0.86rem; }
+
+  /* ---------- 스냅 가격 (탭) ---------- */
+  .snap-pricing { background: var(--bg); }
+  .tabs {
+    display: flex; gap: 6px; margin-top: 40px;
+    border-bottom: 1px solid var(--line);
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    border: 1px solid var(--line); border-bottom: none;
+    background: #fff; padding: 11px 20px; border-radius: 10px 10px 0 0;
+    font-family: var(--sans); font-size: 0.9rem; font-weight: 400; color: var(--ink-soft);
+    cursor: pointer; white-space: nowrap; transition: all 0.2s;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .tab-panel { display: none; padding: 30px 0 6px; }
+  .tab-panel.active { display: block; }
+  .snap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .snap-card {
+    border: 1px solid var(--line); border-radius: 14px; padding: 26px 24px 24px;
+    background: #fff;
+  }
+  .snap-card.popular { border-color: var(--accent); }
+  .snap-card .snap-name { font-size: 0.95rem; font-weight: 500; }
+  .snap-card .snap-name em { font-style: normal; color: var(--ink-soft); font-size: 0.8rem; margin-left: 3px; }
+  .snap-card .snap-price { font-family: var(--serif); font-size: 1.45rem; font-weight: 600; margin-top: 8px; }
+  .snap-card ul { margin-top: 14px; list-style: none; }
+  .snap-card li {
+    font-size: 0.85rem; color: var(--ink-soft);
+    padding: 5px 0 5px 16px; position: relative;
+  }
+  .snap-card li::before {
+    content: ''; position: absolute; left: 0; top: 13px;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+  }
+  .snap-card .snap-note { margin-top: 12px; font-size: 0.8rem; color: var(--accent); font-weight: 400; }
+  .snap-more { margin-top: 26px; text-align: center; color: var(--ink-soft); font-size: 0.88rem; }
+
+  /* ---------- 오시는 길 ---------- */
+  .visit { background: var(--bg-soft); }
+  .visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 44px; }
+  .visit-item { padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .visit-item:first-child { border-top: 1px solid var(--line); }
+  .visit-item .label { font-size: 0.78rem; letter-spacing: 0.14em; color: var(--accent); font-weight: 500; }
+  .visit-item .value { margin-top: 6px; font-size: 1rem; font-weight: 400; }
+  .visit-item .value.small { color: var(--ink-soft); font-size: 0.9rem; }
+  .link-btns { display: flex; flex-direction: column; gap: 10px; }
+  .link-btn {
+    display: flex; align-items: center; justify-content: space-between;
+    border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px;
+    background: #fff; transition: all 0.2s; font-size: 0.92rem; font-weight: 400;
+  }
+  .link-btn:hover { border-color: var(--ink); transform: translateY(-1px); }
+  .link-btn .arr { color: var(--accent); }
+
+  /* ---------- 푸터 ---------- */
+  footer {
+    padding: 44px 0 56px; text-align: center;
+    color: var(--ink-soft); font-size: 0.82rem;
+  }
+  footer .brand { font-family: var(--serif); color: var(--ink); font-size: 0.95rem; margin-bottom: 8px; }
+
+  /* ---------- 반응형 ---------- */
+  @media (max-width: 900px) {
+    .hero { padding: 56px 0 48px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 36px; }
+    .hero h1 { font-size: 2rem; }
+    .about-grid, .visit-grid { grid-template-columns: 1fr; gap: 36px; }
+    .services-grid, .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .insta-grid { grid-template-columns: repeat(3, 1fr); }
+    .price-grid { grid-template-columns: 1fr; }
+    .snap-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav ul { display: none; }
+    section { padding: 64px 0; }
+  }
+  @media (max-width: 560px) {
+    .container { padding: 0 20px; }
+    .services-grid, .gallery-grid { grid-template-columns: 1fr; }
+    .snap-grid { grid-template-columns: 1fr; }
+    .hero { padding: 40px 0 40px; }
+    .hero h1 { font-size: 1.55rem; }
+    .hero .btns { flex-direction: column; }
+    .hero .btns .btn { width: 100%; text-align: center; }
+    .nav .cta { padding: 8px 14px; font-size: 0.8rem; }
+    .sec-title { font-size: 1.55rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#" class="logo">
+      <img src="images/logo.gif" alt="이안스튜디오 로고">
+      <span>이안스튜디오 율하</span>
+    </a>
+    <ul>
+      <li><a href="#about">스튜디오</a></li>
+      <li><a href="#services">촬영 메뉴</a></li>
+      <li><a href="#gallery">사진 모음</a></li>
+      <li><a href="#insta">인스타</a></li>
+      <li><a href="#pricing">가격 안내</a></li>
+      <li><a href="#snap">스냅 가격</a></li>
+      <li><a href="#prep">준비사항</a></li>
+      <li><a href="#visit">오시는 길</a></li>
+    </ul>
+    <a href="tel:01057670195" class="cta">예약 문의</a>
+  </div>
+</header>
+
+<!-- 히어로 -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <p class="sec-label">KIMHAE · YULHA · FAMILY PHOTO</p>
+      <h1>우리 가족의 오늘을,<br>가장 빛나는 순간<br><span class="accent">그대로 기록합니다</span></h1>
+      <p class="sub">김해 율하 가족사진 전문 스튜디오 이안스튜디오입니다. 아이의 첫 돌부터 대가족의 웃음까지, 소중한 순간을 오래도록 간직할 수 있게 도와드려요.</p>
+      <div class="btns">
+        <a href="tel:01057670195" class="btn btn-dark">전화 예약 · 문의</a>
+        <a href="https://open.kakao.com/o/sCQ9r0qb" target="_blank" rel="noopener" class="btn btn-outline">카카오 오픈채팅</a>
+      </div>
+      <p class="trust">네이버 플레이스 리뷰 109개 · 무료 주차 · 반려동물 동반 가능</p>
+    </div>
+    <figure>
+      <img src="images/hero.jpg" alt="반려묘와 함께한 가족사진">
+    </figure>
+  </div>
+</section>
+
+<!-- 리뷰 이벤트 -->
+<section class="event">
+  <div class="container">
+    <div class="event-banner">
+      <a href="https://map.naver.com/p/search/%EC%9D%B4%EC%95%88%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4/place/19375508" target="_blank" rel="noopener">
+        <img src="images/event.jpg" alt="율하 이안스튜디오 리뷰이벤트 — 리뷰 작성 시 나만의 포토카드 증정">
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 소개 -->
+<section class="about" id="about">
+  <div class="container">
+    <p class="sec-label">ABOUT STUDIO</p>
+    <h2 class="sec-title">편안한 분위기에서,<br>가장 자연스러운 우리를 담아요</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>이안스튜디오는 김해 율하에서 가족사진, 바디프로필, 증명·여권사진을 촬영하는 사진관입니다.</p>
+        <p>화려한 연출보다 자연스러운 순간을, 많은 장수보다 한 장의 마음이 담긴 사진을 만듭니다. 카메라 앞이 어색한 분들도, 아이와 반려동물과 함께 오신 분들도 편안하게 촬영할 수 있도록 하나하나 신경 씁니다.</p>
+        <p>또한 웨딩스냅 · 돌스냅 · 칠순팔순스냅 전문 브랜드 <strong>스토리위드이안(@storywith_ian)</strong>을 함께 운영하며, 창원·부산·밀양·진주·경주·김해 등 특별한 날의 현장에도 찾아가 순간을 담아드리고 있어요.</p>
+      </div>
+      <div class="features">
+        <div class="feature">
+          <h3>1:1 맞춤 보정</h3>
+          <p>얼굴만 과하게 보정하지 않아요. 더 자연스럽게, 더 아름답게 — 개개인의 분위기에 맞춰 다듬어드려요.</p>
+        </div>
+        <div class="feature">
+          <h3>프라이빗 단독 촬영</h3>
+          <p>다른 손님과 시간을 나누지 않는 여유로운 촬영. 아이가 울거나 낯을 가려도 괜찮아요, 천천히 진행합니다.</p>
+        </div>
+        <div class="feature">
+          <h3>아이 · 반려동물 환영</h3>
+          <p>아이와 반려동물은 가족의 일부. 함께여서 더 특별한 사진을 찍을 수 있도록 도와드려요.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 촬영 메뉴 -->
+<section class="services" id="services">
+  <div class="container">
+    <p class="sec-label">SERVICES</p>
+    <h2 class="sec-title">어떤 순간이든,<br>한 장의 사진으로 남깁니다</h2>
+    <div class="services-grid">
+      <div class="service">
+        <p class="num">01</p>
+        <h3>가족사진</h3>
+        <p>아이의 성장, 가족의 웃음. 시간이 지나도 변치 않는 가장 소중한 기록이에요.</p>
+        <a href="tel:01057670195" class="more">문의하기 →</a>
+      </div>
+      <div class="service">
+        <p class="num">02</p>
+        <h3>바디프로필</h3>
+        <p>노력의 결과를 가장 아름답게. 다이어트와 운동의 결실을 세련되게 담아드려요.</p>
+        <a href="tel:01057670195" class="more">문의하기 →</a>
+      </div>
+      <div class="service">
+        <p class="num">03</p>
+        <h3>증명 · 여권사진</h3>
+        <p>어디에 내놔도 자신 있는 증명사진. 1:1 보정으로 가장 자연스러운 얼굴로.</p>
+        <a href="tel:01057670195" class="more">문의하기 →</a>
+      </div>
+      <div class="service">
+        <p class="num">04</p>
+        <h3>리마인드웨딩</h3>
+        <p>결혼식 날의 설렘을 다시 한번. 부부의 시간을 감성적으로 기록해요.</p>
+        <a href="tel:01057670195" class="more">문의하기 →</a>
+      </div>
+      <div class="service">
+        <p class="num">05</p>
+        <h3>대가족사진</h3>
+        <p>모두가 함께한 순간을 한 장의 사진으로. 명절과 기념일에 온 가족이 모여요.</p>
+        <a href="tel:01057670195" class="more">문의하기 →</a>
+      </div>
+      <div class="service">
+        <p class="num">06</p>
+        <h3>반려동물 · 반려묘</h3>
+        <p>네 발 달린 가족도 빼놓을 수 없죠. 아이들과 함께한 특별한 가족사진.</p>
+        <a href="tel:01057670195" class="more">문의하기 →</a>
+      </div>
+    </div>
+    <div class="snap-banner">
+      <div>
+        <p class="num">SPECIAL — 웨딩 · 돌 · 칠순팔순</p>
+        <h3>특별한 날, 현장에서 담는 감성 스냅</h3>
+        <p>결혼식 본식, 돌잔치, 칠순·팔순까지. 그날의 설렘을 한 장 한 장 감성적으로 담아요. 창원·부산·밀양·진주·경주·김해 전 지역 출장 촬영 — 스토리위드이안 <strong>@storywith_ian</strong></p>
+      </div>
+      <a href="https://www.instagram.com/storywith_ian/" target="_blank" rel="noopener" class="btn btn-dark">스냅 계정 보기</a>
+    </div>
+  </div>
+</section>
+
+<!-- 갤러리 -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <p class="sec-label">GALLERY</p>
+    <h2 class="sec-title">이안스튜디오에서 찍은 사진들</h2>
+    <div class="gallery-tabs">
+      <button class="gtab active" data-cat="family">가족사진</button>
+      <button class="gtab" data-cat="body">바디프로필</button>
+      <button class="gtab" data-cat="snap">스냅</button>
+    </div>
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </div>
+</section>
+
+<!-- 인스타 피드 -->
+<section class="insta-feed" id="insta">
+  <div class="container">
+    <p class="sec-label">INSTAGRAM</p>
+    <h2 class="sec-title">인스타그램에서 만나요</h2>
+    <div class="insta-group">
+      <h3>스튜디오 <a href="https://www.instagram.com/ianstudio_yulha/" target="_blank" rel="noopener">@ianstudio_yulha →</a></h3>
+      <div class="insta-grid">
+        <a href="https://www.instagram.com/ianstudio_yulha/" target="_blank" rel="noopener"><img src="images/feed_studio_01.jpg" alt="이안스튜디오 인스타 1"></a>
+        <a href="https://www.instagram.com/ianstudio_yulha/" target="_blank" rel="noopener"><img src="images/feed_studio_02.jpg" alt="이안스튜디오 인스타 2"></a>
+        <a href="https://www.instagram.com/ianstudio_yulha/" target="_blank" rel="noopener"><img src="images/feed_studio_03.jpg" alt="이안스튜디오 인스타 3"></a>
+        <a href="https://www.instagram.com/ianstudio_yulha/" target="_blank" rel="noopener"><img src="images/feed_studio_04.jpg" alt="이안스튜디오 인스타 4"></a>
+        <a href="https://www.instagram.com/ianstudio_yulha/" target="_blank" rel="noopener"><img src="images/feed_studio_05.jpg" alt="이안스튜디오 인스타 5"></a>
+        <a href="https://www.instagram.com/ianstudio_yulha/" target="_blank" rel="noopener"><img src="images/feed_studio_06.jpg" alt="이안스튜디오 인스타 6"></a>
+      </div>
+    </div>
+    <div class="insta-group">
+      <h3>스냅 <a href="https://www.instagram.com/storywith_ian/" target="_blank" rel="noopener">@storywith_ian →</a></h3>
+      <div class="insta-grid">
+        <a href="https://www.instagram.com/storywith_ian/" target="_blank" rel="noopener"><img src="images/feed_snap_01.jpg" alt="이안스냅 인스타 1"></a>
+        <a href="https://www.instagram.com/storywith_ian/" target="_blank" rel="noopener"><img src="images/feed_snap_02.jpg" alt="이안스냅 인스타 2"></a>
+        <a href="https://www.instagram.com/storywith_ian/" target="_blank" rel="noopener"><img src="images/feed_snap_03.jpg" alt="이안스냅 인스타 3"></a>
+        <a href="https://www.instagram.com/storywith_ian/" target="_blank" rel="noopener"><img src="images/feed_snap_04.jpg" alt="이안스냅 인스타 4"></a>
+        <a href="https://www.instagram.com/storywith_ian/" target="_blank" rel="noopener"><img src="images/feed_snap_05.jpg" alt="이안스냅 인스타 5"></a>
+        <a href="https://www.instagram.com/storywith_ian/" target="_blank" rel="noopener"><img src="images/feed_snap_06.jpg" alt="이안스냅 인스타 6"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 가격 -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <p class="sec-label">PRICING</p>
+    <h2 class="sec-title">가격 안내</h2>
+    <div class="price-grid">
+      <div class="price-col">
+        <h3>가족사진 패키지</h3>
+        <div class="price-item">
+          <div class="p-head"><span>시그니처 <em>평생의 기록</em></span><span class="price">95만원</span></div>
+          <p>촬영 2시간 · 보정 20장 · 20×30 액자 1개 + 20×24 액자 1개 + 8×10 액자 2개</p>
+        </div>
+        <div class="price-item hot">
+          <div class="p-head"><span>프리미엄<span class="badge">인기</span></span><span class="price">55만원</span></div>
+          <p>촬영 1.5시간 · 보정 10장 · 20×30 아크릴 액자 1개 + 8×10 아크릴 액자 2개</p>
+        </div>
+        <div class="price-item">
+          <div class="p-head"><span>스탠다드</span><span class="price">35만원</span></div>
+          <p>촬영 1시간 · 보정 5장 · 20×24 아크릴 액자 1개</p>
+        </div>
+        <div class="price-item">
+          <div class="p-head"><span>베이직 <em>첫 가족사진</em></span><span class="price">15만원</span></div>
+          <p>촬영 40분 · 11×14 아크릴 액자 1개 · 액자용 보정 1장</p>
+        </div>
+        <div class="price-item">
+          <div class="p-head"><span>스페셜 <em>액자 없이 사진만</em></span><span class="price">인당 2만원</span></div>
+          <p>촬영 + 수정본 1장 · 인원수에 따라 (2인 4만 · 3인 6만 · 4인 8만)</p>
+        </div>
+      </div>
+      <div class="price-col">
+        <h3>인물 · 반려 촬영</h3>
+        <div class="price-item">
+          <div class="p-head"><span>리마인드웨딩 <em>메인액자+원본</em></span><span class="price">450,000원</span></div>
+          <p>메인 액자 포함 · 전체 원본 제공</p>
+        </div>
+        <div class="price-item">
+          <div class="p-head"><span>바디프로필 <em>3컨셉</em></span><span class="price">250,000원</span></div>
+          <p>3컨셉 촬영 · 수정 3장</p>
+        </div>
+        <div class="price-item">
+          <div class="p-head"><span>반려동물 촬영</span><span class="price">50,000원</span></div>
+          <p>가족과 함께한 반려동물 촬영</p>
+        </div>
+        <div class="price-item">
+          <div class="p-head"><span>출장 촬영</span><span class="price">문의</span></div>
+          <p>웨딩스냅 · 돌스냅 · 행사 · 메뉴 · 인테리어 · 출장 가족사진</p>
+        </div>
+        <p class="price-call">문의 010-5767-0195 · 카카오 오픈채팅</p>
+      </div>
+      <div class="price-col">
+        <h3>증명 · 문서사진</h3>
+        <div class="price-item">
+          <div class="p-head"><span>장수사진 <em>11R 액자 포함</em></span><span class="price">90,000원</span></div>
+          <p>11R 액자 포함 · 파일 제공</p>
+        </div>
+        <div class="price-item">
+          <div class="p-head"><span>취업사진</span><span class="price">50,000원</span></div>
+          <p>파일 제공</p>
+        </div>
+        <div class="price-item">
+          <div class="p-head"><span>프로필사진</span><span class="price">50,000원</span></div>
+          <p>파일 제공</p>
+        </div>
+        <div class="price-item">
+          <div class="p-head"><span>비자사진</span><span class="price">25,000원</span></div>
+          <p>파일 제공</p>
+        </div>
+        <div class="price-item">
+          <div class="p-head"><span>증명 · 여권사진 <em>1:1 수정</em></span><span class="price">20,000원</span></div>
+          <p>1:1 수정 · 파일 제공</p>
+        </div>
+      </div>
+    </div>
+    <p class="price-note">* 가격은 인원 · 컨셉 · 촬영 시간에 따라 달라질 수 있어요. 부담 없이 문의 주시면 자세히 안내해 드려요.</p>
+    <div class="price-cta">
+      <a href="tel:01057670195" class="btn btn-dark">패키지 예약 · 문의</a>
+      <a href="https://open.kakao.com/o/sCQ9r0qb" target="_blank" rel="noopener" class="btn btn-outline">카카오 오픈채팅</a>
+    </div>
+  </div>
+</section>
+
+<!-- 스냅 가격 -->
+<section class="snap-pricing" id="snap">
+  <div class="container">
+    <p class="sec-label">SNAP PRICING — @storywith_ian</p>
+    <h2 class="sec-title">스냅 상품 안내</h2>
+    <div class="tabs">
+      <button class="tab active" data-panel="wedding-snap">웨딩스냅</button>
+      <button class="tab" data-panel="wedding-film">웨딩영상</button>
+      <button class="tab" data-panel="wedding-package">웨딩 패키지</button>
+      <button class="tab" data-panel="dol">돌스냅</button>
+      <button class="tab" data-panel="chilsun">칠순스냅</button>
+      <button class="tab" data-panel="iphone">아이폰스냅</button>
+    </div>
+
+    <div class="tab-panel active" id="wedding-snap">
+      <div class="snap-grid">
+        <div class="snap-card">
+          <p class="snap-name">웨딩스냅 · 데이터형</p>
+          <p class="snap-price">55만원</p>
+          <ul>
+            <li>원본 1,000컷 이상</li>
+            <li>보정 20컷</li>
+            <li>온라인 데이터 제공</li>
+          </ul>
+        </div>
+        <div class="snap-card">
+          <p class="snap-name">웨딩스냅 · 앨범형</p>
+          <p class="snap-price">65만원</p>
+          <ul>
+            <li>원본 1,000컷 이상</li>
+            <li>보정 30컷</li>
+            <li>11×14 30p 포토앨범 1권</li>
+          </ul>
+        </div>
+        <div class="snap-card">
+          <p class="snap-name">프리미엄 스냅</p>
+          <p class="snap-price">105만원</p>
+          <ul>
+            <li>원본 1,000컷 이상</li>
+            <li>보정 50컷</li>
+            <li>11×14 50p 앨범 1권 + 30p 앨범 2권 (총 3권)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="wedding-film">
+      <div class="snap-grid">
+        <div class="snap-card">
+          <p class="snap-name">웨딩영상 · 데이터형</p>
+          <p class="snap-price">55만원</p>
+          <ul>
+            <li>하이라이트 1분</li>
+            <li>풀영상</li>
+            <li>온라인 데이터 제공</li>
+          </ul>
+        </div>
+        <div class="snap-card">
+          <p class="snap-name">웨딩영상 · 스탠다드</p>
+          <p class="snap-price">65만원</p>
+          <ul>
+            <li>1인 2캠 + 인터뷰</li>
+            <li>티저 1분 + 하이라이트 + 풀영상</li>
+            <li>온라인 데이터 제공</li>
+          </ul>
+        </div>
+        <div class="snap-card">
+          <p class="snap-name">웨딩영상 & 아이폰</p>
+          <p class="snap-price">80만원</p>
+          <ul>
+            <li>하이라이트 1분 + 풀영상</li>
+            <li>아이폰 보정 10장 + 영상</li>
+            <li>온라인 데이터 제공</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="wedding-package">
+      <div class="snap-grid">
+        <div class="snap-card">
+          <p class="snap-name">베이직 패키지 <em>데이터형</em></p>
+          <p class="snap-price">105만원</p>
+          <ul>
+            <li>스냅 원본 + 보정 20컷</li>
+            <li>하이라이트 1분 + 풀영상</li>
+            <li>온라인 데이터 제공</li>
+          </ul>
+        </div>
+        <div class="snap-card">
+          <p class="snap-name">스탠다드 패키지 <em>데이터+앨범</em></p>
+          <p class="snap-price">125만원</p>
+          <ul>
+            <li>스냅 원본 + 보정 30컷</li>
+            <li>11×14 30p 포토앨범 1권</li>
+            <li>티저 + 하이라이트 + 풀영상</li>
+          </ul>
+        </div>
+        <div class="snap-card">
+          <p class="snap-name">스냅 + 영상 + 아이폰</p>
+          <p class="snap-price">130만원</p>
+          <ul>
+            <li>스냅 원본 + 보정 20컷</li>
+            <li>하이라이트 1분 + 풀영상</li>
+            <li>아이폰 원본 + 보정 10컷 + 1분 영상</li>
+          </ul>
+        </div>
+        <div class="snap-card">
+          <p class="snap-name">스냅 데이터 & 아이폰</p>
+          <p class="snap-price">80만원</p>
+          <ul>
+            <li>웨딩스냅 보정 20컷</li>
+            <li>아이폰 보정 10장 + 하이라이트</li>
+            <li>온라인 데이터 제공</li>
+          </ul>
+        </div>
+        <div class="snap-card">
+          <p class="snap-name">스냅 앨범형 & 아이폰</p>
+          <p class="snap-price">90만원</p>
+          <ul>
+            <li>11×14 30p 포토앨범 1권</li>
+            <li>아이폰 보정 10장 + 하이라이트</li>
+            <li>온라인 데이터 제공</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="dol">
+      <div class="snap-grid">
+        <div class="snap-card">
+          <p class="snap-name">돌스냅 · 데이터형</p>
+          <p class="snap-price">33만원</p>
+          <ul>
+            <li>행사 50분 전부터 촬영</li>
+            <li>원본 전체 + 보정 20컷</li>
+          </ul>
+          <p class="snap-note">가성비 기록용</p>
+        </div>
+        <div class="snap-card">
+          <p class="snap-name">돌스냅 · 액자형</p>
+          <p class="snap-price">43만원</p>
+          <ul>
+            <li>행사 1시간 전부터 촬영</li>
+            <li>원본 + 보정 20컷</li>
+            <li>11×14 액자 1 + 8×10 액자 2</li>
+          </ul>
+          <p class="snap-note">액자만 필요할 때</p>
+        </div>
+        <div class="snap-card popular">
+          <p class="snap-name">압축앨범형 <span class="badge">인기</span></p>
+          <p class="snap-price">49만원</p>
+          <ul>
+            <li>행사 1시간 전부터 촬영</li>
+            <li>원본 + 보정 30컷</li>
+            <li>8×8 30p 압축앨범 (20×20cm)</li>
+          </ul>
+          <p class="snap-note">적당한 크기의 앨범</p>
+        </div>
+        <div class="snap-card">
+          <p class="snap-name">화보앨범형</p>
+          <p class="snap-price">59만원</p>
+          <ul>
+            <li>행사 1시간 20분 전부터 촬영</li>
+            <li>원본 + 보정 40컷</li>
+            <li>27×36 40p 화보앨범 + 8×10 아크릴 액자 2</li>
+          </ul>
+          <p class="snap-note">앨범+액자 모두 필요할 때</p>
+        </div>
+        <div class="snap-card">
+          <p class="snap-name">아이폰스냅 추가</p>
+          <p class="snap-price">25만원</p>
+          <ul>
+            <li>돌잔치 촬영에 아이폰 추가</li>
+            <li>원본 + 보정 10컷 + 영상</li>
+            <li>당일 감사카드</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="chilsun">
+      <div class="snap-grid">
+        <div class="snap-card">
+          <p class="snap-name">칠순잔치 · BASIC</p>
+          <p class="snap-price">25만원</p>
+          <ul>
+            <li>원본 200장 내외</li>
+            <li>전문 보정 20컷</li>
+            <li>고급 인화 포함</li>
+          </ul>
+        </div>
+        <div class="snap-card popular">
+          <p class="snap-name">칠순잔치 · STANDARD <span class="badge">인기</span></p>
+          <p class="snap-price">45만원</p>
+          <ul>
+            <li>원본 300장 내외</li>
+            <li>전문 보정 30컷</li>
+            <li>20×16 대형 액자 + 8×10 탁상 액자</li>
+          </ul>
+          <p class="snap-note">가족 모두를 위한 완성도 높은 구성</p>
+        </div>
+        <div class="snap-card">
+          <p class="snap-name">아이폰스냅 추가</p>
+          <p class="snap-price">25만원</p>
+          <ul>
+            <li>칠순잔치 촬영에 아이폰 추가</li>
+            <li>원본 + 보정 10컷 + 영상</li>
+            <li>당일 감사카드</li>
+          </ul>
+        </div>
+      </div>
+      <p class="snap-more">경남 전 지역 출장 촬영 · 액자 및 앨범 추가 구성 가능</p>
+    </div>
+
+    <div class="tab-panel" id="iphone">
+      <div class="snap-grid">
+        <div class="snap-card">
+          <p class="snap-name">아이폰스냅</p>
+          <p class="snap-price">25만원</p>
+          <ul>
+            <li>원본 + 보정 10컷</li>
+            <li>당일 감사카드</li>
+            <li>온라인 데이터 제공</li>
+          </ul>
+        </div>
+        <div class="snap-card">
+          <p class="snap-name">아이폰스냅 + 영상</p>
+          <p class="snap-price">30만원</p>
+          <ul>
+            <li>원본 + 보정 10컷 + 영상</li>
+            <li>당일 감사카드</li>
+            <li>온라인 데이터 제공</li>
+          </ul>
+        </div>
+        <div class="snap-card">
+          <p class="snap-name">아이폰 메인 촬영</p>
+          <p class="snap-price">문의</p>
+          <ul>
+            <li>아이폰으로 메인 촬영이 필요하시다면 문의 주세요</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 촬영 준비사항 -->
+<section class="prep" id="prep">
+  <div class="container">
+    <p class="sec-label">PREPARATION</p>
+    <h2 class="sec-title">촬영 전 준비사항</h2>
+    <p class="sec-desc">촬영 전 미리 확인하시면 더 예쁜 사진을 남길 수 있어요.</p>
+    <div class="prep-image">
+      <img src="images/prep.jpg" alt="촬영 전 준비사항 안내">
+    </div>
+  </div>
+</section>
+
+<!-- 오시는 길 -->
+<section class="visit" id="visit">
+  <div class="container">
+    <p class="sec-label">VISIT</p>
+    <h2 class="sec-title">오시는 길</h2>
+    <div class="visit-grid">
+      <div>
+        <div class="visit-item">
+          <div class="label">주소</div>
+          <div class="value">경남 김해시 율하2로126번길 22, 1층</div>
+        </div>
+        <div class="visit-item">
+          <div class="label">전화 · 예약</div>
+          <div class="value">010-5767-0195 · 010-7577-1124</div>
+          <div class="value small">촬영·출장 중에는 예약 확인이 늦어질 수 있어요</div>
+        </div>
+        <div class="visit-item">
+          <div class="label">주차</div>
+          <div class="value">무료 주차 가능</div>
+        </div>
+        <div class="visit-item">
+          <div class="label">운영</div>
+          <div class="value small">사전 예약제로 운영됩니다. 원하시는 날짜와 시간을 알려주시면 맞춰드려요.</div>
+        </div>
+      </div>
+      <div class="link-btns">
+        <a href="https://open.kakao.com/o/sCQ9r0qb" target="_blank" rel="noopener" class="link-btn">
+          <span>카카오 오픈채팅으로 예약·문의</span><span class="arr">→</span>
+        </a>
+        <a href="https://www.instagram.com/ianstudio_yulha/" target="_blank" rel="noopener" class="link-btn">
+          <span>인스타그램 @ianstudio_yulha — 스튜디오</span><span class="arr">→</span>
+        </a>
+        <a href="https://www.instagram.com/storywith_ian/" target="_blank" rel="noopener" class="link-btn">
+          <span>인스타그램 @storywith_ian — 웨딩·돌·칠순팔순 스냅</span><span class="arr">→</span>
+        </a>
+        <a href="https://blog.naver.com/ianstudio-yulha" target="_blank" rel="noopener" class="link-btn">
+          <span>네이버 블로그 — 촬영 후기 보기</span><span class="arr">→</span>
+        </a>
+        <a href="https://map.naver.com/v5/search/%EC%9C%A8%ED%95%982%EB%A1%9C126%EB%B2%88%EA%B8%B8%2022" target="_blank" rel="noopener" class="link-btn">
+          <span>네이버 지도에서 보기</span><span class="arr">→</span>
+        </a>
+        <a href="https://map.naver.com/p/search/%EC%9D%B4%EC%95%88%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4/place/19375508" target="_blank" rel="noopener" class="link-btn">
+          <span>네이버 플레이스 — 리뷰 109개 보기</span><span class="arr">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p class="brand">이안스튜디오 율하</p>
+    <p>경남 김해시 율하2로126번길 22, 1층 · 010-5767-0195 · 010-7577-1124</p>
+    <p style="margin-top:6px;">© 2026 IAN STUDIO. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // 스냅 가격 탭 전환
+  document.querySelectorAll('.tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      document.getElementById(tab.getAttribute('data-panel')).classList.add('active');
+    });
+  });
+
+  // 갤러리 자동 로딩 — images/gallery/ 폴더의 family_01~, body_01~, snap_01~ 파일명 규칙으로 자동 표시
+  // 사진을 추가하려면 파일명 규칙만 지키면 됩니다: family_01.jpg, family_02.jpg ... (숫자 순서대로)
+  var GALLERY_CATS = [
+    { id: 'family', prefix: 'family_' },
+    { id: 'body', prefix: 'body_' },
+    { id: 'snap', prefix: 'snap_' }
+  ];
+  var galleryGrid = document.getElementById('gallery-grid');
+  var currentCat = 'family';
+  var MAX_SHOW = 15;
+
+  function loadGallery(cat) {
+    var catInfo = GALLERY_CATS.find(function (c) { return c.id === cat; });
+    galleryGrid.innerHTML = '';
+    var added = 0;
+    for (var i = 1; i <= 30; i++) {
+      (function (num) {
+        var src = 'images/gallery/' + catInfo.prefix + num + '.jpg';
+        var img = new Image();
+        img.onload = function () {
+          if (added >= MAX_SHOW) return;
+          added++;
+          var fig = document.createElement('figure');
+          var im = document.createElement('img');
+          im.src = src;
+          im.alt = catInfo.prefix + num;
+          im.loading = 'lazy';
+          fig.appendChild(im);
+          galleryGrid.appendChild(fig);
+        };
+        img.src = src;
+      })(String(i).padStart(2, '0'));
+    }
+  }
+
+  document.querySelectorAll('.gtab').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.gtab').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentCat = btn.getAttribute('data-cat');
+      loadGallery(currentCat);
+    });
+  });
+
+  loadGallery('family');
+</script>
+
+</body>
+</html>
