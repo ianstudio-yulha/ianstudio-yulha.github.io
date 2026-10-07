@@ -938,13 +938,14 @@
     });
   });
 
-  // 갤러리 자동 로딩 — images/gallery/ 폴더의 family_01~, body_01~, snap_01~ 파일명 규칙으로 자동 표시
+  // 갤러리 자동 로딩 — images/gallery/ 폴더의 family_01~, body_01~, profile_01~, etc_01~ 파일명 규칙으로 자동 표시
   // 사진을 추가하려면 파일명 규칙만 지키면 됩니다: family_01.jpg, family_02.jpg ... (숫자 순서대로)
+  // ※ 없는 번호는 자동으로 건너뜁니다! (예: family_01, 02, 06, 08, 10~19 처럼 띄엄띄엄 있어도 OK!)
   var GALLERY_CATS = [
-    { id: 'family', prefix: 'family_' },
-    { id: 'body', prefix: 'body_' },
-    { id: 'profile', prefix: 'profile_' },
-    { id: 'etc', prefix: 'etc_' }
+    { id: 'family', prefix: 'family_', max: 30 },
+    { id: 'body', prefix: 'body_', max: 20 },
+    { id: 'profile', prefix: 'profile_', max: 30 },
+    { id: 'etc', prefix: 'etc_', max: 20 }
   ];
   var galleryGrid = document.getElementById('gallery-grid');
   var currentCat = 'family';
@@ -954,7 +955,7 @@
     var catInfo = GALLERY_CATS.find(function (c) { return c.id === cat; });
     galleryGrid.innerHTML = '';
     var added = 0;
-    for (var i = 1; i <= 30; i++) {
+    for (var i = 1; i <= catInfo.max; i++) {
       (function (num) {
         var src = 'images/gallery/' + catInfo.prefix + num + '.jpg';
         var img = new Image();
@@ -969,6 +970,8 @@
           fig.appendChild(im);
           galleryGrid.appendChild(fig);
         };
+        // 없는 번호는 조용히 건너뜀! (콘솔에 에러 안 남김)
+        img.onerror = function () {};
         img.src = src;
       })(String(i).padStart(2, '0'));
     }
