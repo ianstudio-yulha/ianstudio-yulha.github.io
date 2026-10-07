@@ -942,10 +942,10 @@
   // 사진을 추가하려면 파일명 규칙만 지키면 됩니다: family_01.jpg, family_02.jpg ... (숫자 순서대로)
   // ※ 없는 번호는 자동으로 건너뜁니다! (예: family_01, 02, 06, 08, 10~19 처럼 띄엄띄엄 있어도 OK!)
   var GALLERY_CATS = [
-    { id: 'family', prefix: 'family_', max: 30 },
-    { id: 'body', prefix: 'body_', max: 20 },
-    { id: 'profile', prefix: 'profile_', max: 30 },
-    { id: 'etc', prefix: 'etc_', max: 20 }
+    { id: 'family', prefix: 'family_', max: 20 },
+    { id: 'body', prefix: 'body_', max: 10 },
+    { id: 'profile', prefix: 'profile_', max: 25 },
+    { id: 'etc', prefix: 'etc_', max: 10 }
   ];
   var galleryGrid = document.getElementById('gallery-grid');
   var currentCat = 'family';
