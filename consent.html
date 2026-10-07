@@ -339,8 +339,7 @@ G('consentForm').addEventListener('submit', async (e) => {
     name, phone, shotDate,
     snapProducts: snap.join(' | '),
     studioProducts: studio.join(' | '),
-    memo, promo, privacy:'O',
-    ua: navigator.userAgent.substring(0,80)
+    memo, promo
   };
   try{
     await fetch(SCRIPT_URL, { method:'POST', mode:'no-cors',
