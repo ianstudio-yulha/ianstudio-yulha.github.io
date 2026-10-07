@@ -136,40 +136,24 @@
 
       <div class="card">
         <div class="secnum">04</div>
-        <div class="sectitle">사진 사용 안내</div>
-        <div class="sechint">편하게 확인해 주세요. 선택하지 않으셔도 전혀 불이익이 없어요!</div>
-
+        <div class="sectitle">확인 사항</div>
+        <label class="consent" onclick="this.classList.toggle('on')">
+          <input type="checkbox" id="c_privacy" required>
+          <div class="txt"><b>개인정보 수집·이용 동의 <span style="color:#c98a8a">(필수)</span></b><span>수집: 이름, 연락처, 촬영일 / 목적: 예약 확인 및 사진 사용 기록 / 보관: 철회 시까지</span></div>
+        </label>
         <label class="consent" onclick="this.classList.toggle('on')">
           <input type="checkbox" id="c_promo">
-          <div class="txt"><b>사진을 SNS나 홍보에 사용하는 것에 동의합니다</b><span>이안스튜디오 홈페이지 · 블로그 · 인스타그램 · 스토리위드이안 · 홍보물</span></div>
+          <div class="txt"><b>초상권 사용 동의 <span style="color:#a09889">(선택)</span></b><span>수정된 파일의 사용을 동의합니다.</span></div>
         </label>
-
         <div class="gift">
           🎁 <b>동의해 주시면 소정의 선물을 드려요!</b><br>
           소중한 사진을 함께 나눠주시는 마음에 감사드립니다.
         </div>
       </div>
 
-      <div class="card">
-        <div class="secnum">05</div>
-        <div class="sectitle">필수 확인</div>
-        <label class="consent" onclick="this.classList.toggle('on')">
-          <input type="checkbox" id="c_privacy" required>
-          <div class="txt"><b>개인정보 수집·이용 동의 <span style="color:#c98a8a">(필수)</span></b><span>수집: 이름, 연락처, 촬영일 / 목적: 예약 확인 및 사진 사용 기록 / 보관: 철회 시까지</span></div>
-        </label>
-        <label class="consent" onclick="this.classList.toggle('on')">
-          <input type="checkbox" id="c_portrait" required>
-          <div class="txt"><b>초상권 사용 동의 <span style="color:#c98a8a">(필수)</span></b><span>위에서 동의하신 범위의 사진만 사용합니다.</span></div>
-        </label>
-        <label class="consent" onclick="this.classList.toggle('on')">
-          <input type="checkbox" id="c_minor">
-          <div class="txt"><b>미성년자 법정대리인 동의</b><span>만 19세 미만(자녀 포함)이 촬영된 경우, 부모로서 동의합니다.</span></div>
-        </label>
-      </div>
-
       <div class="notice">
         <b>📌 편하게 확인해 주세요</b>
-        · 사진 사용 동의는 <b style="display:inline">언제든지 철회</b>하실 수 있어요.<br>
+        · 초상권 사용 동의는 <b style="display:inline">언제든지 철회</b>하실 수 있어요.<br>
         · 동의하지 않으셔도 촬영과 앨범 제작은 그대로 진행됩니다.
       </div>
 
@@ -189,7 +173,7 @@
       <div class="pline"></div>
       <div class="pblock"><div class="pt">고객 정보</div><div class="pv" id="pCustomer"></div></div>
       <div class="pblock"><div class="pt">예약 상품</div><div class="pv" id="pProducts"></div></div>
-      <div class="pblock"><div class="pt">사진 사용 동의</div><div class="pv" id="pPromo"></div></div>
+      <div class="pblock"><div class="pt">초상권 사용 동의</div><div class="pv" id="pPromo"></div></div>
       <div class="pblock" id="pMemoBlock"><div class="pt">요청 사항</div><div class="pv" id="pMemo"></div></div>
       <div class="pfoot">
         본 확인서는 예약 내용을 확인하기 위한 문서입니다.<br>
@@ -275,12 +259,10 @@ G('consentForm').addEventListener('submit', async (e) => {
   const name = G('name').value.trim(), phone = G('phone').value.trim(), shotDate = G('shotDate').value;
   if(!name || !phone || !shotDate){ alert('기본 정보를 모두 입력해 주세요.'); return; }
   if(!G('c_privacy').checked){ alert('개인정보 수집·이용에 동의해 주세요.'); return; }
-  if(!G('c_portrait').checked){ alert('초상권 사용에 동의해 주세요.'); return; }
 
   const snap = collect(SNAP, 'sn_'), studio = collect(STUDIO, 'st_');
   const memo = G('memo').value.trim();
   const promo = G('c_promo').checked ? 'O' : '';
-  const minor = G('c_minor').checked ? 'O' : '';
 
   const t = new Date();
   G('pDate').textContent = t.getFullYear() + '년 ' + (t.getMonth()+1) + '월 ' + t.getDate() + '일 작성';
@@ -290,7 +272,7 @@ G('consentForm').addEventListener('submit', async (e) => {
   if(snap.length)   ph += '<div style="margin-bottom:6px"><b style="font-size:12.5px;color:#b08d57">스냅</b><br>' + snap.map(tg).join('') + '</div>';
   if(studio.length) ph += '<div><b style="font-size:12.5px;color:#b08d57">스튜디오</b><br>' + studio.map(tg).join('') + '</div>';
   G('pProducts').innerHTML = ph || '<span class="empty">선택한 상품이 없습니다 (상담 후 결정)</span>';
-  G('pPromo').innerHTML = promo ? tg('SNS · 홍보 사용 동의') + tg('선물 증정') : '<span class="empty">동의하지 않음 (홍보 사용하지 않음)</span>';
+  G('pPromo').innerHTML = promo ? tg('초상권 사용 동의') + tg('선물 증정') : '<span class="empty">동의하지 않음 (홍보 사용하지 않음)</span>';
   if(memo){ G('pMemoBlock').style.display='block'; G('pMemo').textContent = memo; }
   else { G('pMemoBlock').style.display='none'; }
 
@@ -299,7 +281,7 @@ G('consentForm').addEventListener('submit', async (e) => {
     name, phone, shotDate,
     snapProducts: snap.join(' | '),
     studioProducts: studio.join(' | '),
-    memo, promo, privacy:'O', portrait:'O', minor,
+    memo, promo, privacy:'O',
     ua: navigator.userAgent.substring(0,80)
   };
   try{
