@@ -243,9 +243,14 @@ function toggleBox(sid){
   const box = document.getElementById('box_' + sid);
   const cb  = document.getElementById(sid);
   const hasSub = box.querySelector('.sub');
-  if(hasSub && !cb.checked){ cb.checked = true; syncBox(sid); }
-  box.classList.toggle('open');
-  box.classList.toggle('on', cb.checked);
+  if(!cb.checked){
+    // 첫 클릭 → 선택하고 펼침!
+    cb.checked = true;
+    box.classList.add('open', 'on');
+  } else {
+    // 이미 선택됨 → 펼침/접힘 토글
+    box.classList.toggle('open');
+  }
 }
 function syncBox(sid){
   const box = document.getElementById('box_' + sid);
