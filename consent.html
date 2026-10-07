@@ -9,67 +9,80 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  body{
-    font-family:'Noto Serif KR',serif;
-    background:#fdfbf7;
-    background-image:radial-gradient(#e8e2d8 0.9px, transparent 0.9px);
-    background-size:22px 22px;
-    color:#2f2f2f; line-height:1.75; padding:28px 18px 60px; min-height:100vh;
-  }
+  body{font-family:'Noto Serif KR',serif;background:#fdfbf7;background-image:radial-gradient(#e8e2d8 0.9px,transparent 0.9px);background-size:22px 22px;color:#2f2f2f;line-height:1.75;padding:28px 18px 60px}
   .wrap{max-width:560px;margin:0 auto}
-  .top{text-align:center;margin-bottom:32px}
+  .top{text-align:center;margin-bottom:30px}
   .logo{font-family:'Playfair Display',serif;font-style:italic;font-size:13px;letter-spacing:.22em;color:#b08d57;margin-bottom:14px}
-  h1{font-size:23px;font-weight:600;letter-spacing:-0.01em;margin-bottom:8px}
+  h1{font-size:23px;font-weight:600;margin-bottom:8px}
   h1 em{font-family:'Playfair Display',serif;font-style:italic;color:#b08d57;font-weight:500}
-  .sub{font-size:12.5px;color:#9a9086}
-  .heart{color:#d9a5a5;font-size:11px;margin-top:10px}
-  .card{background:#fff;border:1px solid #efe9e0;border-radius:16px;padding:24px 22px;margin-bottom:18px;box-shadow:0 2px 14px rgba(176,141,87,0.05)}
+  .sub{font-size:12.5px;color:#9a9086}.heart{color:#d9a5a5;font-size:11px;margin-top:10px}
+  .card{background:#fff;border:1px solid #efe9e0;border-radius:16px;padding:24px 22px;margin-bottom:18px;box-shadow:0 2px 14px rgba(176,141,87,.05)}
   .secnum{font-family:'Playfair Display',serif;font-size:12px;color:#c9b79a;letter-spacing:.16em;margin-bottom:4px}
   .sectitle{font-size:15.5px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:8px}
   .sectitle::after{content:'';flex:1;height:1px;background:linear-gradient(to right,#efe9e0,transparent)}
   .sechint{font-size:12px;color:#a09889;margin-bottom:16px;line-height:1.6}
   label.fl{display:block;font-size:13px;color:#6b6259;margin-bottom:7px}
   label.fl .req{color:#c98a8a;font-size:11px;margin-left:3px}
-  input[type=text],input[type=tel],input[type=date]{width:100%;padding:13px 14px;border:1px solid #e8e2d8;border-radius:10px;font-family:inherit;font-size:15px;color:#2f2f2f;background:#fdfcfa;margin-bottom:16px}
-  input:focus{outline:none;border-color:#b08d57;background:#fff}
-  input::placeholder{color:#c4bcb1}
+  input[type=text],input[type=tel],input[type=date],textarea{width:100%;padding:13px 14px;border:1px solid #e8e2d8;border-radius:10px;font-family:inherit;font-size:15px;color:#2f2f2f;background:#fdfcfa;margin-bottom:16px}
+  input:focus,textarea:focus{outline:none;border-color:#b08d57;background:#fff}
+  input::placeholder,textarea::placeholder{color:#c4bcb1}
+  textarea{min-height:110px;resize:vertical;line-height:1.7;font-size:14px}
 
-  /* 상품 그룹 */
-  .group{margin-bottom:18px}
-  .group:last-child{margin-bottom:0}
+  .group{margin-bottom:20px}.group:last-child{margin-bottom:0}
   .ghead{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:#5c554c;margin-bottom:11px;padding-bottom:8px;border-bottom:1px dashed #efe4d4}
-  .ghead .ic{font-size:15px}
   .ghead .desc{font-weight:400;font-size:11.5px;color:#a89e91;margin-left:auto}
-  .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .opt{display:flex;align-items:center;gap:9px;padding:11px 12px;border:1px solid #f0eae1;border-radius:9px;cursor:pointer;background:#fdfcfa;transition:all .16s;font-size:13px;color:#4a443c}
-  .opt:active{transform:scale(0.98)}
-  .opt.on{background:#fbf7f0;border-color:#d9c4a4}
-  .opt input{appearance:none;-webkit-appearance:none;width:19px;height:19px;min-width:19px;border:2px solid #ddd4c6;border-radius:6px;position:relative;background:#fff;transition:all .16s}
-  .opt input:checked{background:#b08d57;border-color:#b08d57}
-  .opt input:checked::after{content:'✓';color:#fff;font-size:12px;font-weight:700;position:absolute;left:50%;top:50%;transform:translate(-50%,-52%)}
 
-  /* 동의 (큰 박스!) */
-  .consent{display:flex;align-items:flex-start;gap:12px;padding:15px 15px;border:1px solid #f0eae1;border-radius:11px;margin-bottom:9px;cursor:pointer;background:#fdfcfa;transition:all .18s}
+  /* 상품 항목 (펼침!) */
+  .prod{border:1px solid #f0eae1;border-radius:11px;margin-bottom:8px;background:#fdfcfa;overflow:hidden;transition:all .18s}
+  .prod.on{border-color:#d9c4a4;background:#fbf7f0}
+  .prow{display:flex;align-items:center;gap:11px;padding:13px 14px;cursor:pointer}
+  .prow input{appearance:none;-webkit-appearance:none;width:20px;height:20px;min-width:20px;border:2px solid #ddd4c6;border-radius:6px;position:relative;background:#fff;transition:all .16s}
+  .prow input:checked{background:#b08d57;border-color:#b08d57}
+  .prow input:checked::after{content:'✓';color:#fff;font-size:13px;font-weight:700;position:absolute;left:50%;top:50%;transform:translate(-50%,-52%)}
+  .prow .nm{font-size:13.5px;color:#4a443c;flex:1}
+  .prow .arw{font-size:11px;color:#c4b8a4;transition:transform .2s}
+  .prod.open .prow .arw{transform:rotate(180deg)}
+  .sub{padding:0 14px;max-height:0;overflow:hidden;transition:max-height .28s ease,padding .28s}
+  .prod.open .sub{max-height:600px;padding:0 14px 14px}
+  .sub .lbl{font-size:11.5px;color:#a89e91;margin:2px 0 9px;padding-left:2px}
+  .subopts{display:flex;flex-wrap:wrap;gap:7px}
+  .so{display:flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid #ece5da;border-radius:20px;background:#fff;cursor:pointer;font-size:12.5px;color:#5c554c}
+  .so input{appearance:none;-webkit-appearance:none;width:15px;height:15px;min-width:15px;border:2px solid #ddd4c6;border-radius:50%;position:relative;background:#fff}
+  .so input:checked{background:#b08d57;border-color:#b08d57}
+  .so input:checked::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:5px;height:5px;border-radius:50%;background:#fff}
+  .so.on{border-color:#d9c4a4;background:#fbf7f0}
+
+  .consent{display:flex;align-items:flex-start;gap:12px;padding:15px;border:1px solid #f0eae1;border-radius:11px;margin-bottom:9px;cursor:pointer;background:#fdfcfa;transition:all .18s}
   .consent.on{background:#fbf7f0;border-color:#d9c4a4}
-  .consent input{appearance:none;-webkit-appearance:none;width:22px;height:22px;min-width:22px;border:2px solid #ddd4c6;border-radius:6px;margin-top:1px;position:relative;background:#fff;transition:all .16s}
+  .consent input{appearance:none;-webkit-appearance:none;width:22px;height:22px;min-width:22px;border:2px solid #ddd4c6;border-radius:6px;margin-top:1px;position:relative;background:#fff}
   .consent input:checked{background:#b08d57;border-color:#b08d57}
   .consent input:checked::after{content:'✓';color:#fff;font-size:14px;font-weight:700;position:absolute;left:50%;top:50%;transform:translate(-50%,-52%)}
   .consent .txt{font-size:13.5px;line-height:1.55;color:#4a443c}
   .consent .txt b{font-weight:600;color:#2f2f2f;display:block;margin-bottom:2px}
   .consent .txt span{font-size:11.5px;color:#a09889;line-height:1.5}
-
   .notice{background:#fbf7f0;border:1px solid #efe4d4;border-radius:12px;padding:15px 16px;font-size:12.5px;color:#7a7166;line-height:1.8;margin-bottom:16px}
   .notice b{color:#5c554c;font-weight:600;display:block;margin-bottom:5px}
-  .btn{width:100%;padding:17px;border:none;border-radius:12px;background:#2f2f2f;color:#fff;font-family:inherit;font-size:15.5px;font-weight:600;letter-spacing:.03em;cursor:pointer;margin-top:6px;transition:all .2s}
-  .btn:active{transform:scale(0.99);background:#1a1a1a}
-  .btn:disabled{background:#d5cfc6}
+  .btn{width:100%;padding:17px;border:none;border-radius:12px;background:#2f2f2f;color:#fff;font-family:inherit;font-size:15.5px;font-weight:600;cursor:pointer;margin-top:6px}
+  .btn:active{background:#1a1a1a}.btn:disabled{background:#d5cfc6}
+  .btn.light{background:#fff;color:#2f2f2f;border:1px solid #ddd4c6}
   .foot{text-align:center;font-size:11.5px;color:#b5ada2;margin-top:24px;line-height:2}
   .foot .en{font-family:'Playfair Display',serif;font-style:italic;color:#c9b79a;letter-spacing:.06em}
-  .done{display:none;text-align:center;padding:60px 20px}
-  .done .big{font-size:42px;margin-bottom:18px}
-  .done h2{font-size:20px;margin-bottom:12px;font-weight:600}
-  .done p{font-size:13.5px;color:#8a8177;line-height:1.9}
-  @media (max-width:420px){h1{font-size:20px}.card{padding:20px 17px}.opts{grid-template-columns:1fr}}
+
+  /* 계약서 카드 (이미지로 저장될 부분!) */
+  .done{display:none;padding:10px 0 0}
+  .permit{background:#fff;border:1px solid #e8e0d2;border-radius:16px;padding:30px 26px;text-align:center}
+  .permit .plogo{font-family:'Playfair Display',serif;font-style:italic;font-size:12px;letter-spacing:.2em;color:#b08d57;margin-bottom:12px}
+  .permit h2{font-size:20px;font-weight:600;margin-bottom:6px}
+  .permit .pdate{font-size:11.5px;color:#a09889;margin-bottom:20px}
+  .permit .pline{height:1px;background:linear-gradient(to right,transparent,#e8e0d2,transparent);margin:18px 0}
+  .pblock{text-align:left;margin-bottom:16px}
+  .pblock .pt{font-size:11.5px;color:#b08d57;letter-spacing:.08em;margin-bottom:7px;font-weight:600}
+  .pblock .pv{font-size:14px;color:#2f2f2f;line-height:1.9}
+  .pblock .pv .tagline{display:inline-block;background:#fbf7f0;border:1px solid #ece0cc;border-radius:14px;padding:4px 11px;margin:0 5px 5px 0;font-size:12.5px}
+  .pblock .pv .empty{color:#c4bcb1;font-size:12.5px}
+  .pfoot{margin-top:22px;padding-top:16px;border-top:1px solid #f0eae1;font-size:11.5px;color:#a09889;line-height:1.9;text-align:left}
+  .psave{margin-top:18px}
+  @media (max-width:420px){h1{font-size:20px}.card{padding:20px 17px}}
 </style>
 </head>
 <body>
@@ -84,88 +97,65 @@
     </div>
 
     <form id="consentForm">
-
-      <!-- 01 기본 정보 -->
       <div class="card">
         <div class="secnum">01</div>
         <div class="sectitle">기본 정보</div>
         <div class="sechint">예약 확인을 위해 적어주세요 😊</div>
-
         <label class="fl">이름 (실명)<span class="req">*</span></label>
         <input type="text" id="name" placeholder="홍길동" required>
-
         <label class="fl">연락처<span class="req">*</span></label>
         <input type="tel" id="phone" placeholder="010-0000-0000" required>
-
         <label class="fl">촬영일<span class="req">*</span></label>
         <input type="date" id="shotDate" required style="margin-bottom:0">
       </div>
 
-      <!-- 02 촬영 상품 -->
       <div class="card">
         <div class="secnum">02</div>
         <div class="sectitle">촬영 상품</div>
-        <div class="sechint">하실 촬영을 체크해 주세요! (여러 개도 괜찮아요)</div>
+        <div class="sechint">상품을 누르면 <b>세부 옵션</b>이 펼쳐져요! (여러 개도 괜찮아요)</div>
 
         <div class="group">
-          <div class="ghead"><span class="ic">🏠</span>스튜디오 촬영<span class="desc">율하 스튜디오에서</span></div>
-          <div class="opts">
-            <label class="opt" onclick="this.classList.toggle('on')"><input type="checkbox" id="p_family"><span>가족사진</span></label>
-            <label class="opt" onclick="this.classList.toggle('on')"><input type="checkbox" id="p_body"><span>바디프로필</span></label>
-            <label class="opt" onclick="this.classList.toggle('on')"><input type="checkbox" id="p_remind"><span>리마인드웨딩</span></label>
-            <label class="opt" onclick="this.classList.toggle('on')"><input type="checkbox" id="p_pet"><span>반려동물</span></label>
-            <label class="opt" onclick="this.classList.toggle('on')"><input type="checkbox" id="p_profile"><span>프로필·취업</span></label>
-            <label class="opt" onclick="this.classList.toggle('on')"><input type="checkbox" id="p_id"><span>증명·여권</span></label>
-            <label class="opt" onclick="this.classList.toggle('on')"><input type="checkbox" id="p_memorial"><span>장수사진</span></label>
-            <label class="opt" onclick="this.classList.toggle('on')"><input type="checkbox" id="p_studio_etc"><span>기타</span></label>
-          </div>
+          <div class="ghead"><span>🏠</span>스튜디오 촬영<span class="desc">율하 스튜디오</span></div>
+          <div id="studioList"></div>
         </div>
-
         <div class="group">
-          <div class="ghead"><span class="ic">📷</span>스냅 촬영<span class="desc">현장 출장</span></div>
-          <div class="opts">
-            <label class="opt" onclick="this.classList.toggle('on')"><input type="checkbox" id="p_wedding"><span>본식스냅</span></label>
-            <label class="opt" onclick="this.classList.toggle('on')"><input type="checkbox" id="p_dol"><span>돌스냅</span></label>
-            <label class="opt" onclick="this.classList.toggle('on')"><input type="checkbox" id="p_70"><span>칠순·팔순</span></label>
-            <label class="opt" onclick="this.classList.toggle('on')"><input type="checkbox" id="p_event"><span>행사·기념일</span></label>
-            <label class="opt" onclick="this.classList.toggle('on')"><input type="checkbox" id="p_outdoor"><span>출장 가족사진</span></label>
-            <label class="opt" onclick="this.classList.toggle('on')"><input type="checkbox" id="p_snap_etc"><span>기타</span></label>
-          </div>
+          <div class="ghead"><span>📷</span>스냅 촬영<span class="desc">현장 출장</span></div>
+          <div id="snapList"></div>
         </div>
       </div>
 
-      <!-- 03 사진 사용 안내 -->
       <div class="card">
         <div class="secnum">03</div>
+        <div class="sectitle">남기실 말씀</div>
+        <div class="sechint">기타 문의나 요청사항을 자유롭게 적어주세요</div>
+        <textarea id="memo" placeholder="예: 아이가 3살이라 오전 촬영이 좋아요 / 액자 색상은 밝은 톤으로 부탁드려요 / 주차 문의드려요"></textarea>
+      </div>
+
+      <div class="card">
+        <div class="secnum">04</div>
         <div class="sectitle">사진 사용 안내</div>
         <div class="sechint">홍보에 사용해도 괜찮은 범위를 선택해 주세요.<br>선택하지 않으셔도 전혀 불이익이 없어요!</div>
-
         <label class="consent" onclick="this.classList.toggle('on')">
           <input type="checkbox" id="c_studio_promo">
           <div class="txt"><b>스튜디오 홍보 사용</b><span>이안스튜디오 홈페이지 · 블로그 · 인스타그램 · 홍보물</span></div>
         </label>
-
         <label class="consent" onclick="this.classList.toggle('on')">
           <input type="checkbox" id="c_snap_promo">
           <div class="txt"><b>스냅 홍보 사용</b><span>스토리위드이안 인스타그램 (@storywith_ian) 등</span></div>
         </label>
       </div>
 
-      <!-- 04 필수 동의 -->
       <div class="card">
-        <div class="secnum">04</div>
+        <div class="secnum">05</div>
         <div class="sectitle">필수 확인</div>
-
         <label class="consent" onclick="this.classList.toggle('on')">
           <input type="checkbox" id="c_privacy" required>
-          <div class="txt"><b>개인정보 수집·이용 동의 <span style="color:#c98a8a">(필수)</span></b><span>수집 항목: 이름, 연락처, 촬영일 / 목적: 예약 확인 및 사진 사용 기록 / 보관: 철회 시까지</span></div>
+          <div class="txt"><b>개인정보 수집·이용 동의 <span style="color:#c98a8a">(필수)</span></b><span>수집: 이름, 연락처, 촬영일 / 목적: 예약 확인 및 사진 사용 기록 / 보관: 철회 시까지</span></div>
         </label>
-
         <label class="consent" onclick="this.classList.toggle('on')">
           <input type="checkbox" id="c_portrait" required>
-          <div class="txt"><b>초상권 사용 동의 <span style="color:#c98a8a">(필수)</span></b><span>위에서 선택한 범위의 사진만 사용합니다. 선택하지 않은 범위는 사용하지 않아요.</span></div>
+          <div class="txt"><b>초상권 사용 동의 <span style="color:#c98a8a">(필수)</span></b><span>위에서 선택한 범위의 사진만 사용합니다.</span></div>
         </label>
-
         <label class="consent" onclick="this.classList.toggle('on')">
           <input type="checkbox" id="c_minor">
           <div class="txt"><b>미성년자 법정대리인 동의</b><span>만 19세 미만(자녀 포함)이 촬영된 경우, 부모로서 동의합니다.</span></div>
@@ -175,88 +165,188 @@
       <div class="notice">
         <b>📌 편하게 확인해 주세요</b>
         · 사진 사용 동의는 <b style="display:inline">언제든지 철회</b>하실 수 있어요.<br>
-        · 동의하지 않으셔도 촬영과 앨범 제작은 그대로 진행됩니다.<br>
-        · 선택하신 범위의 사진만 사용하며, 그 외에는 사용하지 않아요.
+        · 동의하지 않으셔도 촬영과 앨범 제작은 그대로 진행됩니다.
       </div>
 
       <button type="submit" class="btn" id="submitBtn">예약 카드 제출하기</button>
-
       <div class="foot">
         <div class="en">Always with you</div>
-        이안스튜디오 · 김해시 율하2로126번길 22 1층<br>
-        010-5767-0195
+        이안스튜디오 · 김해시 율하2로126번길 22 1층<br>010-5767-0195
       </div>
     </form>
   </div>
 
+  <!-- 제출 후: 계약서 카드! -->
   <div class="done" id="doneArea">
-    <div class="big">🌸</div>
-    <h2>감사합니다!</h2>
-    <p>예약 카드가 잘 접수되었어요.<br>소중한 사진, 정성껏 준비할게요!<br><br>
-    <span style="font-size:12px;color:#b5ada2">내용이 안전하게 저장되었습니다.</span></p>
+    <div class="permit" id="permitCard">
+      <div class="plogo">IAN STUDIO YULHA</div>
+      <h2>촬영 예약 확인서</h2>
+      <div class="pdate" id="pDate"></div>
+      <div class="pline"></div>
+      <div class="pblock"><div class="pt">고객 정보</div><div class="pv" id="pCustomer"></div></div>
+      <div class="pblock"><div class="pt">예약 상품</div><div class="pv" id="pProducts"></div></div>
+      <div class="pblock"><div class="pt">사진 사용 동의</div><div class="pv" id="pPromo"></div></div>
+      <div class="pblock" id="pMemoBlock"><div class="pt">요청 사항</div><div class="pv" id="pMemo"></div></div>
+      <div class="pfoot">
+        본 확인서는 예약 내용을 확인하기 위한 문서입니다.<br>
+        사진 사용 동의는 언제든지 철회하실 수 있습니다.<br>
+        이안스튜디오 · 김해시 율하2로126번길 22 1층 · 010-5767-0195
+      </div>
+    </div>
+    <button class="btn psave" id="saveBtn">📄 계약서 이미지로 저장</button>
+    <button class="btn light" id="backBtn" style="margin-top:10px">← 내용 수정하기</button>
   </div>
 
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
-// ⚠️ 구글 Apps Script 배포 URL!
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzVbVXXlXtg0I6wKIFSzjml2JnuJC_GayF3lDLT6Uw6DjJU48tXRg345s7iY-30-eJo/exec';
 
-const PRODUCTS = [
-  ['p_family','가족사진'],['p_body','바디프로필'],['p_remind','리마인드웨딩'],['p_pet','반려동물'],
-  ['p_profile','프로필·취업'],['p_id','증명·여권'],['p_memorial','장수사진'],['p_studio_etc','스튜디오 기타'],
-  ['p_wedding','본식스냅'],['p_dol','돌스냅'],['p_70','칠순·팔순'],['p_event','행사·기념일'],
-  ['p_outdoor','출장 가족사진'],['p_snap_etc','스냅 기타']
+// ═══ 상품 정의 (홈페이지 가격표 기준!)
+const STUDIO = [
+  { id:'family', nm:'가족사진', sub:['시그니처','프리미엄','스탠다드','베이직','스페셜'] },
+  { id:'remind', nm:'리마인드웨딩', sub:[] },
+  { id:'body',   nm:'바디프로필', sub:[] },
+  { id:'pet',    nm:'반려동물', sub:[] },
+  { id:'profile',nm:'프로필·취업', sub:['취업사진','프로필사진'] },
+  { id:'idphoto',nm:'증명·여권', sub:['증명·여권','비자사진'] },
+  { id:'memorial',nm:'장수사진', sub:[] },
+  { id:'setc',   nm:'기타', sub:[] }
+];
+const SNAP = [
+  { id:'wedding', nm:'본식스냅', sub:[] },
+  { id:'dol',     nm:'돌스냅', sub:[] },
+  { id:'old',     nm:'칠순·팔순', sub:[] },
+  { id:'event',   nm:'행사·기념일', sub:[] },
+  { id:'outfamily',nm:'출장 가족사진', sub:[] },
+  { id:'netc',    nm:'기타', sub:[] }
 ];
 
-document.getElementById('consentForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
+function render(container, items, prefix){
+  container.innerHTML = items.map(it => {
+    const hasSub = it.sub.length > 0;
+    const sid = prefix + it.id;
+    const arrow = hasSub ? '<span class="arw">▼</span>' : '';
+    const subs = hasSub ? `<div class="sub"><div class="lbl">세부 선택 (복수 선택 가능)</div><div class="subopts">` +
+      it.sub.map(s => `<label class="so" onclick="event.stopPropagation();this.classList.toggle('on')">
+        <input type="checkbox" id="${sid}_${s.replace(/[^가-힣a-zA-Z]/g,'')}" data-label="${s}"><span>${s}</span></label>`).join('') +
+      `</div></div>` : '';
+    return `<div class="prod" id="box_${sid}">
+      <div class="prow" onclick="toggleBox('${sid}')">
+        <input type="checkbox" id="${sid}" onclick="event.stopPropagation();syncBox('${sid}')"><span class="nm">${it.nm}</span>${arrow}
+      </div>${subs}</div>`;
+  }).join('');
+}
 
-  const name = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const shotDate = document.getElementById('shotDate').value;
+function toggleBox(sid){
+  const box = document.getElementById('box_' + sid);
+  const cb  = document.getElementById(sid);
+  const hasSub = box.querySelector('.sub');
+  if(hasSub && !cb.checked){ cb.checked = true; syncBox(sid); }
+  box.classList.toggle('open');
+  box.classList.toggle('on', cb.checked);
+}
+function syncBox(sid){
+  const box = document.getElementById('box_' + sid);
+  const cb  = document.getElementById(sid);
+  box.classList.toggle('on', cb.checked);
+  if(cb.checked) box.classList.add('open');
+}
 
-  if(!name || !phone || !shotDate){ alert('기본 정보를 모두 입력해 주세요.'); return; }
-  if(!document.getElementById('c_privacy').checked){ alert('개인정보 수집·이용에 동의해 주세요.'); return; }
-  if(!document.getElementById('c_portrait').checked){ alert('초상권 사용에 동의해 주세요.'); return; }
+render(document.getElementById('studioList'), STUDIO, 'st_');
+render(document.getElementById('snapList'), SNAP, 'sn_');
 
-  // 선택한 상품 모으기!
-  const studio = [], snap = [];
-  PRODUCTS.forEach(([id, label], i) => {
-    if(document.getElementById(id).checked){
-      (i < 8 ? studio : snap).push(label);
+// ── 수집!
+function collect(){
+  const out = { studio:[], snap:[] };
+  STUDIO.forEach(it => {
+    const cb = document.getElementById('st_' + it.id);
+    if(cb.checked){
+      const subs = Array.from(document.querySelectorAll(`#box_st_${it.id} .so input:checked`)).map(i => i.dataset.label);
+      out.studio.push(it.nm + (subs.length ? ' (' + subs.join(', ') + ')' : ''));
     }
   });
+  SNAP.forEach(it => {
+    const cb = document.getElementById('sn_' + it.id);
+    if(cb.checked){
+      const subs = Array.from(document.querySelectorAll(`#box_sn_${it.id} .so input:checked`)).map(i => i.dataset.label);
+      out.snap.push(it.nm + (subs.length ? ' (' + subs.join(', ') + ')' : ''));
+    }
+  });
+  return out;
+}
+const G = id => document.getElementById(id);
 
+G('consentForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const name = G('name').value.trim(), phone = G('phone').value.trim(), shotDate = G('shotDate').value;
+  if(!name || !phone || !shotDate){ alert('기본 정보를 모두 입력해 주세요.'); return; }
+  if(!G('c_privacy').checked){ alert('개인정보 수집·이용에 동의해 주세요.'); return; }
+  if(!G('c_portrait').checked){ alert('초상권 사용에 동의해 주세요.'); return; }
+
+  const sel = collect();
+  const memo = G('memo').value.trim();
+  const studioPromo = G('c_studio_promo').checked ? 'O' : '';
+  const snapPromo = G('c_snap_promo').checked ? 'O' : '';
+  const minor = G('c_minor').checked ? 'O' : '';
+
+  // ── 계약서 카드 채우기!
+  const today = new Date();
+  G('pDate').textContent = today.getFullYear() + '년 ' + (today.getMonth()+1) + '월 ' + today.getDate() + '일 작성';
+  G('pCustomer').innerHTML = `성함: <b>${name}</b><br>연락처: ${phone}<br>촬영일: ${shotDate}`;
+  const tag = t => `<span class="tagline">${t}</span>`;
+  let prodHtml = '';
+  prodHtml += sel.studio.length ? `<div style="margin-bottom:6px"><b style="font-size:12.5px;color:#b08d57">스튜디오</b><br>${sel.studio.map(tag).join('')}</div>` : '';
+  prodHtml += sel.snap.length ? `<div><b style="font-size:12.5px;color:#b08d57">스냅</b><br>${sel.snap.map(tag).join('')}</div>` : '';
+  G('pProducts').innerHTML = prodHtml || '<span class="empty">선택한 상품이 없습니다 (상담 후 결정)</span>';
+  const promo = [];
+  if(studioPromo) promo.push(tag('스튜디오 홍보'));
+  if(snapPromo) promo.push(tag('스냅 홍보'));
+  if(minor) promo.push(tag('미성년자 보호자 동의'));
+  G('pPromo').innerHTML = promo.length ? promo.join('') : '<span class="empty">선택 안 함 (홍보 사용하지 않음)</span>';
+  if(memo){ G('pMemoBlock').style.display='block'; G('pMemo').textContent = memo; }
+  else { G('pMemoBlock').style.display='none'; }
+
+  // ── 전송!
+  const btn = G('submitBtn'); btn.disabled = true; btn.textContent = '제출 중...';
   const data = {
     name, phone, shotDate,
-    studioProducts: studio.join(', '),
-    snapProducts: snap.join(', '),
-    studioPromo: document.getElementById('c_studio_promo').checked ? 'O' : '',
-    snapPromo: document.getElementById('c_snap_promo').checked ? 'O' : '',
-    privacy: 'O',
-    portrait: 'O',
-    minor: document.getElementById('c_minor').checked ? 'O' : '',
-    ua: navigator.userAgent.substring(0, 80)
+    studioProducts: sel.studio.join(' | '),
+    snapProducts: sel.snap.join(' | '),
+    memo,
+    studioPromo, snapPromo, privacy:'O', portrait:'O', minor,
+    ua: navigator.userAgent.substring(0,80)
   };
-
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true; btn.textContent = '제출 중...';
-
   try{
-    await fetch(SCRIPT_URL, {
-      method:'POST', mode:'no-cors',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body: JSON.stringify(data)
-    });
-    document.getElementById('formArea').style.display='none';
-    document.getElementById('doneArea').style.display='block';
+    await fetch(SCRIPT_URL, { method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(data) });
+    G('formArea').style.display='none';
+    G('doneArea').style.display='block';
     window.scrollTo(0,0);
   }catch(err){
     alert('제출 중 문제가 생겼어요. 잠시 후 다시 시도해 주세요.');
     btn.disabled = false; btn.textContent = '예약 카드 제출하기';
   }
 });
+
+// ── 계약서 이미지 저장!
+G('saveBtn').addEventListener('click', async () => {
+  const b = G('saveBtn'); b.disabled = true; b.textContent = '이미지 만드는 중...';
+  try{
+    const canvas = await html2canvas(G('permitCard'), { backgroundColor:'#ffffff', scale:2, useCORS:true });
+    const a = document.createElement('a');
+    a.download = '이안스튜디오_예약확인서_' + G('name').value.trim() + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+    b.textContent = '✅ 저장했어요! (갤러리 확인)';
+    setTimeout(()=>{ b.disabled=false; b.textContent='📄 계약서 이미지로 저장'; }, 2500);
+  }catch(e){
+    alert('이미지 저장이 안 됐어요. 화면을 캡처해 주세요!');
+    b.disabled = false; b.textContent = '📄 계약서 이미지로 저장';
+  }
+});
+G('backBtn').addEventListener('click', ()=>{ G('doneArea').style.display='none'; G('formArea').style.display='block'; window.scrollTo(0,0); });
 </script>
 </body>
 </html>
