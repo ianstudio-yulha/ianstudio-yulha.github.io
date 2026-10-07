@@ -281,8 +281,20 @@ function pickSub(el){
 function syncBox(sid){
   const box = document.getElementById('box_' + sid);
   const cb  = document.getElementById(sid);
-  box.classList.toggle('on', cb.checked);
-  if(cb.checked) box.classList.add('open');
+  const prefix = sid.slice(0, 3);   // 'sn_' 또는 'st_'
+  if(cb.checked){
+    // 체크박스를 직접 눌러도 같은 그룹의 다른 상품은 자동 해제!
+    document.querySelectorAll('.prow input[id^="' + prefix + '"]').forEach(o => {
+      if(o.id !== sid){
+        o.checked = false;
+        const ob = document.getElementById('box_' + o.id);
+        if(ob) ob.classList.remove('on', 'open');
+      }
+    });
+    box.classList.add('open', 'on');
+  } else {
+    box.classList.remove('on');
+  }
 }
 render(document.getElementById('snapList'), SNAP, 'sn_');
 render(document.getElementById('studioList'), STUDIO, 'st_');
