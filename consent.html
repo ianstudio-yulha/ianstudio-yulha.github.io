@@ -85,6 +85,15 @@
   .pblock .pv .empty{color:#c4bcb1;font-size:12.5px}
   .pfoot{margin-top:22px;padding-top:16px;border-top:1px solid #f0eae1;font-size:11.5px;color:#a09889;line-height:1.9;text-align:left}
   .psave{margin-top:18px}
+
+  /* 이미지 저장 도우미 (모바일에서 저장이 안 될 때!) */
+  .imgmodal{display:none;position:fixed;inset:0;z-index:99}
+  .imgmodal.show{display:block}
+  .imbg{position:absolute;inset:0;background:rgba(20,18,16,.72)}
+  .imwrap{position:absolute;left:0;right:0;bottom:0;max-height:92vh;overflow-y:auto;background:#fdfbf7;border-radius:22px 22px 0 0;padding:22px 20px 30px}
+  .imtitle{font-size:13.5px;color:#4a443c;text-align:center;line-height:1.7;margin-bottom:16px}
+  .imtitle b{color:#b08d57}
+  .imwrap img{width:100%;border:1px solid #e8e0d2;border-radius:12px;margin-bottom:16px;display:block}
   @media (max-width:420px){h1{font-size:20px}.card{padding:20px 17px}}
 </style>
 </head>
@@ -115,7 +124,7 @@
       <div class="card">
         <div class="secnum">02</div>
         <div class="sectitle">촬영 상품</div>
-        <div class="sechint">상품을 누르면 <b>세부 옵션</b>이 펼쳐져요! (여러 개도 괜찮아요)</div>
+        <div class="sechint">상품을 누르면 <b>세부 옵션</b>이 펼쳐져요! (스냅·스튜디오에서 각각 하나씩 선택돼요)</div>
 
         <div class="group">
           <div class="ghead"><span>📷</span>스냅 촬영<span class="desc">현장 출장</span></div>
@@ -185,6 +194,17 @@
     <button class="btn light" id="backBtn" style="margin-top:10px">← 내용 수정하기</button>
   </div>
 
+  <!-- 이미지 저장 도우미 (저장 위치를 몰라도 바로 저장!) -->
+  <div class="imgmodal" id="imgModal">
+    <div class="imbg" onclick="closeImg()"></div>
+    <div class="imwrap">
+      <p class="imtitle"><b>이미지를 꾹~ 길게 눌러</b> 저장하시거나<br>아래 버튼을 눌러주세요!</p>
+      <img id="imPreview" src="" alt="이안스튜디오 예약 확인서">
+      <a class="btn" id="imDownload" download style="display:block;text-align:center;text-decoration:none">📥 이미지 다운로드</a>
+      <button class="btn light" onclick="closeImg()" style="margin-top:10px">닫기</button>
+    </div>
+  </div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -216,8 +236,8 @@ function render(el, items, prefix){
   el.innerHTML = items.map(it => {
     const sid = prefix + it.id;
     const has = it.sub.length > 0;
-    const subs = has ? '<div class="sub"><div class="lbl">세부 선택 (복수 선택 가능)</div><div class="subopts">' +
-      it.sub.map(s => '<label class="so" onclick="event.stopPropagation();this.classList.toggle(\'on\')">' +
+    const subs = has ? '<div class="sub"><div class="lbl">세부 선택 (하나만 선택)</div><div class="subopts">' +
+      it.sub.map(s => '<label class="so" onclick="event.stopPropagation();pickSub(this)">' +
         '<input type="checkbox" data-label="' + s + '"><span>' + s + '</span></label>').join('') +
       '</div></div>' : '';
     return '<div class="prod" id="box_' + sid + '">' +
@@ -229,8 +249,34 @@ function render(el, items, prefix){
 function toggleBox(sid){
   const box = document.getElementById('box_' + sid);
   const cb  = document.getElementById(sid);
-  if(!cb.checked){ cb.checked = true; box.classList.add('open','on'); }
-  else { box.classList.toggle('open'); }
+  const prefix = sid.slice(0, 3);   // 'sn_' 또는 'st_'
+  if(!cb.checked){
+    // 같은 그룹의 다른 상품은 자동 해제! (스냅·스튜디오 각각 하나만!)
+    document.querySelectorAll('.prow input[id^="' + prefix + '"]').forEach(o => {
+      if(o.id !== sid){
+        o.checked = false;
+        const ob = document.getElementById('box_' + o.id);
+        if(ob) ob.classList.remove('on', 'open');
+      }
+    });
+    cb.checked = true;
+    box.classList.add('open', 'on');
+  } else {
+    box.classList.toggle('open');
+  }
+}
+// 세부 옵션도 하나만! (다시 누르면 해제!)
+function pickSub(el){
+  const wrap = el.closest('.subopts');
+  const wasOn = el.classList.contains('on');
+  wrap.querySelectorAll('.so').forEach(s => {
+    s.classList.remove('on');
+    s.querySelector('input').checked = false;
+  });
+  if(!wasOn){
+    el.classList.add('on');
+    el.querySelector('input').checked = true;
+  }
 }
 function syncBox(sid){
   const box = document.getElementById('box_' + sid);
@@ -300,17 +346,33 @@ G('saveBtn').addEventListener('click', async () => {
   const b = G('saveBtn'); b.disabled = true; b.textContent = '이미지 만드는 중...';
   try{
     const canvas = await html2canvas(G('permitCard'), { backgroundColor:'#ffffff', scale:2, useCORS:true });
-    const a = document.createElement('a');
-    a.download = '이안스튜디오_예약확인서_' + G('name').value.trim() + '.png';
-    a.href = canvas.toDataURL('image/png');
-    a.click();
-    b.textContent = '✅ 저장했어요! (갤러리 확인)';
-    setTimeout(()=>{ b.disabled=false; b.textContent='📄 계약서 이미지로 저장'; }, 2500);
+    const fname = '이안스튜디오_예약확인서_' + (G('name').value.trim() || '고객') + '.png';
+
+    // ① 휴대폰: 공유 시트로 저장/카톡 전송! (제일 확실!)
+    try{
+      const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
+      const file = new File([blob], fname, {type:'image/png'});
+      if(navigator.canShare && navigator.canShare({files:[file]})){
+        await navigator.share({files:[file], title:'이안스튜디오 예약 확인서'});
+        b.disabled = false; b.textContent = '✅ 저장/공유 완료!';
+        setTimeout(()=>{ b.textContent = '📄 계약서 이미지로 저장'; }, 2500);
+        return;
+      }
+    }catch(err){ /* 취소 또는 미지원 → 아래 방법으로! */ }
+
+    // ② 이미지를 화면에 크게 띄워서 바로 저장하게! (길게 누르기 + 다운로드)
+    const url = canvas.toDataURL('image/png');
+    G('imPreview').src = url;
+    G('imDownload').href = url;
+    G('imDownload').setAttribute('download', fname);
+    G('imgModal').classList.add('show');
+    b.disabled = false; b.textContent = '📄 계약서 이미지로 저장';
   }catch(e){
     alert('이미지 저장이 안 됐어요. 화면을 캡처해 주세요!');
     b.disabled = false; b.textContent = '📄 계약서 이미지로 저장';
   }
 });
+function closeImg(){ G('imgModal').classList.remove('show'); }
 G('backBtn').addEventListener('click', ()=>{ G('doneArea').style.display='none'; G('formArea').style.display='block'; window.scrollTo(0,0); });
 </script>
 </body>
