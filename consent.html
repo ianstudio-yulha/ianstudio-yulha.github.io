@@ -66,6 +66,8 @@
 
   .notice{background:#fbf7f0;border:1px solid #efe4d4;border-radius:12px;padding:15px 16px;font-size:12.5px;color:#7a7166;line-height:1.8;margin-bottom:16px}
   .notice b{color:#5c554c;font-weight:600;display:block;margin-bottom:5px}
+  .notice .nsub{display:block;margin-top:11px;padding-top:11px;border-top:1px solid #efe4d4;font-size:11.5px;color:#a09889;line-height:1.7}
+  .notice .nsub.thanks{border-top:none;margin-top:7px;padding-top:0;color:#8c8378;font-size:12px}
   .btn{width:100%;padding:17px;border:none;border-radius:12px;background:#2f2f2f;color:#fff;font-family:inherit;font-size:15.5px;font-weight:600;cursor:pointer;margin-top:6px}
   .btn:active{background:#1a1a1a}.btn:disabled{background:#d5cfc6}
   .btn.light{background:#fff;color:#2f2f2f;border:1px solid #ddd4c6}
@@ -152,7 +154,7 @@
         </label>
         <label class="consent" onclick="this.classList.toggle('on')">
           <input type="checkbox" id="c_promo">
-          <div class="txt"><b>초상권 사용 동의 <span style="color:#a09889">(선택)</span></b><span>수정된 파일의 사용을 동의합니다.</span></div>
+          <div class="txt"><b>후기 이벤트 참여 <span style="color:#a09889">(선택)</span></b><span>후기 이벤트 참여는 촬영 사진의 홍보 활용 및 초상권 이용 동의에 기반합니다.</span></div>
         </label>
         <div class="gift">
           🎁 <b>동의해 주시면 소정의 선물을 드려요!</b><br>
@@ -161,9 +163,13 @@
       </div>
 
       <div class="notice">
-        <b>📌 편하게 확인해 주세요</b>
-        · 초상권 사용 동의는 <b style="display:inline">언제든지 철회</b>하실 수 있어요.<br>
-        · 동의하지 않으셔도 촬영과 앨범 제작은 그대로 진행됩니다.
+        <b>📸 후기 이벤트 참여 안내</b>
+        · <b style="display:inline">게시 장소</b> : 네이버 블로그 또는 인스타그램<br>
+        · <b style="display:inline">게시 내용</b> : 촬영 후기와 함께 촬영 사진을 업로드해 주세요<br>
+        · <b style="display:inline">필수 태그</b> : 스튜디오 또는 스냅계정 태그 및 지정 해시태그를 포함해 주세요<br>
+        · <b style="display:inline">유지 기간</b> : 게시물은 업로드 후 6개월간 공개 상태를 유지해 주세요
+        <span class="nsub">※ 후기 이벤트 참여 시 게시해 주신 사진 및 후기는 스튜디오 홍보 목적으로 활용될 수 있으며, 사진 활용에 대한 동의는 별도로 확인합니다.</span>
+        <span class="nsub thanks">소중한 후기와 사진을 남겨주셔서 감사합니다. 🤍</span>
       </div>
 
       <button type="submit" class="btn" id="submitBtn">예약 카드 제출하기</button>
@@ -182,11 +188,11 @@
       <div class="pline"></div>
       <div class="pblock"><div class="pt">고객 정보</div><div class="pv" id="pCustomer"></div></div>
       <div class="pblock"><div class="pt">예약 상품</div><div class="pv" id="pProducts"></div></div>
-      <div class="pblock"><div class="pt">초상권 사용 동의</div><div class="pv" id="pPromo"></div></div>
+      <div class="pblock"><div class="pt">후기 이벤트 참여</div><div class="pv" id="pPromo"></div></div>
       <div class="pblock" id="pMemoBlock"><div class="pt">요청 사항</div><div class="pv" id="pMemo"></div></div>
       <div class="pfoot">
         본 확인서는 예약 내용을 확인하기 위한 문서입니다.<br>
-        초상권 사용 동의는 언제든지 철회하실 수 있습니다.<br>
+        후기 이벤트 참여는 언제든지 취소하실 수 있습니다.<br>
         이안스튜디오 · 김해시 율하2로126번길 22 1층 · 010-5767-0195
       </div>
     </div>
@@ -330,7 +336,7 @@ G('consentForm').addEventListener('submit', async (e) => {
   if(snap.length)   ph += '<div style="margin-bottom:6px"><b style="font-size:12.5px;color:#b08d57">스냅</b><br>' + snap.map(tg).join('') + '</div>';
   if(studio.length) ph += '<div><b style="font-size:12.5px;color:#b08d57">스튜디오</b><br>' + studio.map(tg).join('') + '</div>';
   G('pProducts').innerHTML = ph || '<span class="empty">선택한 상품이 없습니다 (상담 후 결정)</span>';
-  G('pPromo').innerHTML = promo ? tg('초상권 사용 동의') + tg('선물 증정') : '<span class="empty">동의하지 않음 (홍보 사용하지 않음)</span>';
+  G('pPromo').innerHTML = promo ? tg('후기 이벤트 참여') + tg('선물 증정') : '<span class="empty">참여하지 않음 (홍보 사용하지 않음)</span>';
   if(memo){ G('pMemoBlock').style.display='block'; G('pMemo').textContent = memo; }
   else { G('pMemoBlock').style.display='none'; }
 
