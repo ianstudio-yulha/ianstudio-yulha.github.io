@@ -359,10 +359,10 @@ function drawPreview(){
 /* ---------- 파일 ---------- */
 const fileInput=document.getElementById("file"), drop=document.getElementById("drop");
 drop.onclick=()=>fileInput.click();
-fileInput.onchange=e=>addFiles([...e.target.files]);
+fileInput.onchange=e=>{ addFiles([...e.target.files]); e.target.value=""; };
 drop.ondragover=e=>{e.preventDefault();drop.classList.add("hot");};
 drop.ondragleave=()=>drop.classList.remove("hot");
-drop.ondrop=e=>{e.preventDefault();drop.classList.remove("hot");addFiles([...e.dataTransfer.files]);};
+drop.ondrop=e=>{e.preventDefault();e.stopPropagation();drop.classList.remove("hot");addFiles([...e.dataTransfer.files]);};
 
 // 창 어디에 놓아도 인식되게 (전체 페이지 드롭)
 ["dragenter","dragover"].forEach(ev=>document.addEventListener(ev,e=>{
@@ -373,6 +373,7 @@ document.addEventListener("dragleave",e=>{
 });
 document.addEventListener("drop",e=>{
   e.preventDefault(); drop.classList.remove("hot");
+  if(e.defaultPrevented && e.target && e.target.closest && e.target.closest("#drop")) return;
   if(e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) addFiles([...e.dataTransfer.files]);
 });
 
@@ -394,17 +395,33 @@ async function loadOne(file){
   const nw = bmp.width || bmp.naturalWidth, nh = bmp.height || bmp.naturalHeight;
   return {name:file.name.replace(/\.[^.]+$/,""),file,w:nw,h:nh,bmp};
 }
+function fileKey(f){ return f.name+"|"+f.size+"|"+(f.lastModified||0); }
+
 async function addFiles(list){
   const imgs=list.filter(f=>f.type.startsWith("image/"));
   if(!imgs.length) return;
-  const status=document.getElementById("status"); status.textContent="사진 불러오는 중…";
+  const status=document.getElementById("status");
+  // 이미 들어있는 사진(같은 이름·크기)은 건너뛰기 — 중복 방지
+  const seen=new Set(st.files.map(o=>fileKey(o.file||{})));
+  const fresh=[];
+  for(const f of imgs){
+    const k=fileKey(f);
+    if(seen.has(k)) continue;      // 이미 있음
+    seen.add(k);                    // 같은 배치 안 중복도 방지
+    fresh.push(f);
+  }
+  if(!fresh.length){
+    status.textContent="이미 들어있는 사진이에요 (중복은 추가하지 않아요)";
+    return;
+  }
+  status.textContent="사진 불러오는 중…";
   const loaded=[];
-  for(const f of imgs){ try{ loaded.push(await loadOne(f)); }catch(e){ console.warn(e); } }
+  for(const f of fresh){ try{ loaded.push(await loadOne(f)); }catch(e){ console.warn(e); } }
   st.files=st.files.concat(loaded);
   renderThumbs(); refreshUI();
   document.getElementById("go").disabled=st.files.length===0;
-  status.textContent = loaded.length<imgs.length
-    ? `${loaded.length}장 추가 (${imgs.length-loaded.length}장은 열 수 없는 형식·HEIC)`
+  status.textContent = loaded.length<fresh.length
+    ? `${loaded.length}장 추가 (${fresh.length-loaded.length}장은 열 수 없는 형식·HEIC)`
     : `${loaded.length}장 추가됨`;
 }
 function renderThumbs(){
