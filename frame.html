@@ -136,10 +136,12 @@
       · 액자: 사진을 자르지 않고 비율 그대로 (300dpi)<br>
       · 증명사진: 4x6인치 캔버스에 6장/8장 자동 정렬 (테두리 선택 가능)<br>
       · SNS: 비율에 맞춰 가운데/위쪽 기준으로 잘라요<br>
-      · 여러 장이면 압축파일(ZIP) 하나로 받아요 · HEIC는 JPG로 변환 후 사용
+      · 여러 장이면 압축파일(ZIP) 하나로 받아요<br>
+      · <b>아이폰</b>: 저장 후 <b>파일 앱 → 다운로드</b>에서 확인 → 길게 눌러 ‘이미지 저장’
     </div>
   </div>
   <footer>ALWAYS WITH <b>JINJU</b> ♡</footer>
+  <div id="err" style="display:none;margin-top:14px;padding:12px;background:#FDECEA;border:1px solid #E6B0AA;border-radius:3px;color:#922B21;font-size:12px;line-height:1.6"></div>
 </div>
 
 <script>
@@ -363,8 +365,22 @@ document.addEventListener("drop",e=>{
 });
 
 async function loadOne(file){
-  const bmp=await createImageBitmap(file,{imageOrientation:"from-image"});
-  return {name:file.name.replace(/\.[^.]+$/,""),file,w:bmp.width,h:bmp.height,bmp};
+  let bmp=null;
+  try{ bmp=await createImageBitmap(file,{imageOrientation:"from-image"}); }
+  catch(e1){
+    try{ bmp=await createImageBitmap(file); }
+    catch(e2){
+      bmp = await new Promise((res,rej)=>{
+        const img=new Image();
+        const url=URL.createObjectURL(file);
+        img.onload=()=>res(img);
+        img.onerror=()=>{ URL.revokeObjectURL(url); rej(new Error("이미지를 열 수 없어요")); };
+        img.src=url;
+      });
+    }
+  }
+  const nw = bmp.width || bmp.naturalWidth, nh = bmp.height || bmp.naturalHeight;
+  return {name:file.name.replace(/\.[^.]+$/,""),file,w:nw,h:nh,bmp};
 }
 async function addFiles(list){
   const imgs=list.filter(f=>f.type.startsWith("image/"));
@@ -587,6 +603,13 @@ document.getElementById("go").onclick=async ()=>{
   status.textContent=`완료! ${outs.length}장 · ‘다운로드’ 폴더 확인`;
   go.disabled=false;
 };
+
+window.addEventListener("error", e=>{
+  const box=document.getElementById("err");
+  if(!box) return;
+  box.style.display="block";
+  box.textContent="⚠ 오류가 발생했어요: " + (e.message||e.type) + "\n브라우저를 새로고침하거나, 사진을 JPG로 바꿔서 다시 시도해주세요.";
+});
 
 refreshUI();
 </script>
