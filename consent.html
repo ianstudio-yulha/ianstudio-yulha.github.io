@@ -23,7 +23,7 @@
   .sechint{font-size:12px;color:#a09889;margin-bottom:16px;line-height:1.6}
   label.fl{display:block;font-size:13px;color:#6b6259;margin-bottom:7px}
   label.fl .req{color:#c98a8a;font-size:11px;margin-left:3px}
-  input[type=text],input[type=tel],input[type=date],textarea{width:100%;padding:13px 14px;border:1px solid #e8e2d8;border-radius:10px;font-family:inherit;font-size:15px;color:#2f2f2f;background:#fdfcfa;margin-bottom:16px}
+  input[type=text],input[type=tel],input[type=date],input[type=time],textarea{width:100%;padding:13px 14px;border:1px solid #e8e2d8;border-radius:10px;font-family:inherit;font-size:15px;color:#2f2f2f;background:#fdfcfa;margin-bottom:16px}
   input:focus,textarea:focus{outline:none;border-color:#b08d57;background:#fff}
   input::placeholder,textarea::placeholder{color:#c4bcb1}
   textarea{min-height:110px;resize:vertical;line-height:1.7;font-size:14px}
@@ -88,6 +88,14 @@
   .pfoot{margin-top:22px;padding-top:16px;border-top:1px solid #f0eae1;font-size:11.5px;color:#a09889;line-height:1.9;text-align:left}
   .psave{margin-top:18px}
 
+  /* 출장 촬영 정보 — 2열 그리드 (모바일은 1열) */
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+  @media (max-width:430px){.row2{grid-template-columns:1fr}}
+  /* 예약금 안내 */
+  .pblock .pv .pbank{display:block;margin:2px 0 8px;font-size:13.5px}
+  .pblock .pv .pnote{display:block;margin-top:6px;padding-top:8px;border-top:1px dashed #efe4d4;
+                     font-size:11.5px;color:#a09889;line-height:1.85}
+
   /* 이미지 저장 도우미 (모바일에서 저장이 안 될 때!) */
   .imgmodal{display:none;position:fixed;inset:0;z-index:99}
   .imgmodal.show{display:block}
@@ -138,15 +146,43 @@
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" id="outcallCard" style="display:none">
         <div class="secnum">03</div>
+        <div class="sectitle">출장 촬영 정보 <span style="font-weight:400;font-size:12px;color:#a09889">웨딩·본식</span></div>
+        <div class="sechint">예식장으로 찾아가는 촬영이에요. 아래 정보를 적어주세요 😊</div>
+        <div class="row2">
+          <div><label class="fl">신랑 이름<span class="req">*</span></label>
+            <input type="text" id="groomName" placeholder="신랑 성함"></div>
+          <div><label class="fl">신랑 연락처<span class="req">*</span></label>
+            <input type="tel" id="groomPhone" placeholder="010-0000-0000"></div>
+        </div>
+        <div class="row2">
+          <div><label class="fl">신부 이름<span class="req">*</span></label>
+            <input type="text" id="brideName" placeholder="신부 성함"></div>
+          <div><label class="fl">신부 연락처<span class="req">*</span></label>
+            <input type="tel" id="bridePhone" placeholder="010-0000-0000"></div>
+        </div>
+        <div class="row2">
+          <div><label class="fl">예식 날짜<span class="req">*</span></label>
+            <input type="date" id="wedDate"></div>
+          <div><label class="fl">예식 시간<span class="req">*</span></label>
+            <input type="time" id="wedTime"></div>
+        </div>
+        <label class="fl">예식장소<span class="req">*</span></label>
+        <input type="text" id="venue" placeholder="예: ○○웨딩홀 3층 그랜드홀">
+        <label class="fl">예식장 주소 <span style="color:#c4bcb1;font-size:11px">(선택)</span></label>
+        <input type="text" id="venueAddr" placeholder="예: 김해시 ○○로 123" style="margin-bottom:0">
+      </div>
+
+      <div class="card">
+        <div class="secnum">04</div>
         <div class="sectitle">남기실 말씀</div>
         <div class="sechint">기타 문의나 요청사항을 자유롭게 적어주세요</div>
         <textarea id="memo" placeholder="예: 오전 촬영 희망 / 액자 색상은 밝은 톤으로 / 주차 문의드려요"></textarea>
       </div>
 
       <div class="card">
-        <div class="secnum">04</div>
+        <div class="secnum">05</div>
         <div class="sectitle">확인 사항</div>
         <label class="consent" onclick="this.classList.toggle('on')">
           <input type="checkbox" id="c_privacy" required>
@@ -189,7 +225,21 @@
       <div class="pblock"><div class="pt">고객 정보</div><div class="pv" id="pCustomer"></div></div>
       <div class="pblock"><div class="pt">예약 상품</div><div class="pv" id="pProducts"></div></div>
       <div class="pblock"><div class="pt">후기 이벤트 참여</div><div class="pv" id="pPromo"></div></div>
+      <div class="pblock" id="pOutcallBlock" style="display:none">
+        <div class="pt">출장 촬영 정보</div><div class="pv" id="pOutcall"></div>
+      </div>
       <div class="pblock" id="pMemoBlock"><div class="pt">요청 사항</div><div class="pv" id="pMemo"></div></div>
+      <div class="pblock">
+        <div class="pt">예약금 안내</div>
+        <div class="pv">
+          예약금 <b>100,000원</b>
+          <span class="pbank">카카오뱅크 3333-24-9789866 · 예금주 박정선(스토리위드이안)</span>
+          <span class="pnote">
+            · 예약 취소 및 예약금 환불은 <b>예약일 기준 1주일 이내</b>만 가능합니다.<br>
+            · 환불 기간 이후에는 예약금이 환불되지 않습니다.
+          </span>
+        </div>
+      </div>
       <div class="pfoot">
         본 확인서는 예약 내용을 확인하기 위한 문서입니다.<br>
         후기 이벤트 참여는 언제든지 취소하실 수 있습니다.<br>
@@ -305,6 +355,15 @@ function syncBox(sid){
 render(document.getElementById('snapList'), SNAP, 'sn_');
 render(document.getElementById('studioList'), STUDIO, 'st_');
 
+// ── 출장 촬영 정보: 스냅 상품(현장 출장)을 고르면 자동으로 나타남!
+function snapSelected(){ return SNAP.some(it => document.getElementById('sn_' + it.id).checked); }
+function syncOutcall(){
+  document.getElementById('outcallCard').style.display = snapSelected() ? 'block' : 'none';
+}
+document.getElementById('snapList').addEventListener('change', syncOutcall);
+document.getElementById('snapList').addEventListener('click', () => setTimeout(syncOutcall, 0));
+syncOutcall();
+
 function collect(list, prefix){
   const out = [];
   list.forEach(it => {
@@ -325,6 +384,20 @@ G('consentForm').addEventListener('submit', async (e) => {
   if(!G('c_privacy').checked){ alert('개인정보 수집·이용에 동의해 주세요.'); return; }
 
   const snap = collect(SNAP, 'sn_'), studio = collect(STUDIO, 'st_');
+  // ── 출장 촬영 정보 (스냅 선택 시 필수)
+  const outcallOn = snap.length > 0;
+  const oc = {
+    groomName: G('groomName').value.trim(), groomPhone: G('groomPhone').value.trim(),
+    brideName: G('brideName').value.trim(), bridePhone: G('bridePhone').value.trim(),
+    wedDate: G('wedDate').value, wedTime: G('wedTime').value,
+    venue: G('venue').value.trim(), venueAddr: G('venueAddr').value.trim()
+  };
+  if(outcallOn){
+    if(!oc.groomName || !oc.groomPhone){ alert('신랑 이름과 연락처를 적어주세요.'); return; }
+    if(!oc.brideName || !oc.bridePhone){ alert('신부 이름과 연락처를 적어주세요.'); return; }
+    if(!oc.wedDate || !oc.wedTime){ alert('예식 날짜와 시간을 선택해 주세요.'); return; }
+    if(!oc.venue){ alert('예식장소를 적어주세요.'); return; }
+  }
   const memo = G('memo').value.trim();
   const promo = G('c_promo').checked ? 'O' : '';
 
@@ -337,6 +410,14 @@ G('consentForm').addEventListener('submit', async (e) => {
   if(studio.length) ph += '<div><b style="font-size:12.5px;color:#b08d57">스튜디오</b><br>' + studio.map(tg).join('') + '</div>';
   G('pProducts').innerHTML = ph || '<span class="empty">선택한 상품이 없습니다 (상담 후 결정)</span>';
   G('pPromo').innerHTML = promo ? tg('후기 이벤트 참여') + tg('선물 증정') : '<span class="empty">참여하지 않음 (홍보 사용하지 않음)</span>';
+  if(outcallOn){
+    G('pOutcallBlock').style.display = 'block';
+    G('pOutcall').innerHTML =
+      '신랑: <b>' + oc.groomName + '</b> · ' + oc.groomPhone + '<br>' +
+      '신부: <b>' + oc.brideName + '</b> · ' + oc.bridePhone + '<br>' +
+      '예식 일시: ' + oc.wedDate + ' ' + oc.wedTime + '<br>' +
+      '예식장소: ' + oc.venue + (oc.venueAddr ? '<br>주소: ' + oc.venueAddr : '');
+  } else { G('pOutcallBlock').style.display = 'none'; }
   if(memo){ G('pMemoBlock').style.display='block'; G('pMemo').textContent = memo; }
   else { G('pMemoBlock').style.display='none'; }
 
@@ -345,7 +426,11 @@ G('consentForm').addEventListener('submit', async (e) => {
     name, phone, shotDate,
     snapProducts: snap.join(' | '),
     studioProducts: studio.join(' | '),
-    memo, promo
+    memo, promo,
+    groom: outcallOn ? (oc.groomName + ' ' + oc.groomPhone) : '',
+    bride: outcallOn ? (oc.brideName + ' ' + oc.bridePhone) : '',
+    wedding: outcallOn ? (oc.wedDate + ' ' + oc.wedTime) : '',
+    venue: outcallOn ? (oc.venue + (oc.venueAddr ? ' · ' + oc.venueAddr : '')) : ''
   };
   try{
     await fetch(SCRIPT_URL, { method:'POST', mode:'no-cors',
