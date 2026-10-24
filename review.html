@@ -63,7 +63,7 @@
   <div class="card">
     <div class="lbl">REVIEW</div>
     <div class="big">후기 남기면 <em>추가 보정 <span id="revSnap">10</span>장</em></div>
-    <div class="desc">스튜디오 촬영은 추가 보정 <span id="revStudio">5</span>장 · 원본에서 골라주시면 보정해서 파일로 보내드려요</div>
+    <div class="desc">스냅 · 스튜디오 모두 동일 · 원본에서 골라주시면 보정해서 파일로 보내드려요</div>
     <div class="step"><div class="no">01</div><div>네이버 플레이스 리뷰 · 블로그 후기 · 인스타그램 중 <b>한 곳에 남겨주세요</b></div></div>
     <div class="step"><div class="no">02</div><div>남긴 후 <b>스튜디오(010-5767-0195)로 알려주세요</b></div></div>
     <div class="step"><div class="no">03</div><div>원하는 사진 <span id="revSnap2">10</span>장을 골라 보내주시면 <b>3일 안에 보정본 전송</b></div></div>
@@ -72,11 +72,11 @@
   <!-- ② 소개 이벤트 -->
   <div class="card">
     <div class="lbl">REFERRAL</div>
-    <div class="big">지인 소개하면 <em><span id="refCash">5만원</span> 캐시백</em></div>
-    <div class="desc">소개받고 촬영하신 분께도 <span id="refNew">5만원</span> 할인 — 양쪽 모두 혜택이에요</div>
+    <div class="big">지인 소개하면 <em><span id="refCash">3만원</span> 캐시백</em></div>
+    <div class="desc">소개해 주신 분께 드리는 리워드예요</div>
     <div class="step"><div class="no">01</div><div>지인에게 <b>이안스튜디오</b>를 소개해 주세요</div></div>
     <div class="step"><div class="no">02</div><div>예약할 때 <b>“○○님 소개로 왔어요”</b> 한마디만 해주시면 돼요</div></div>
-    <div class="step"><div class="no">03</div><div>촬영이 끝나면 <b>계좌로 캐시백</b> (현금 대신 다음 촬영 할인도 가능!)</div></div>
+    <div class="step"><div class="no">03</div><div><b>소개받은 분의 촬영이 끝난 뒤</b> 소개해 주신 분께 <b>계좌로 3만원</b> 입금</div></div>
   </div>
 
   <div class="div"></div>
@@ -106,7 +106,7 @@
     · 혜택은 <b>온라인으로만</b> 드려요 — 보정본은 파일 전송, 캐시백은 계좌이체 (실물 배송 없음)<br>
     · 후기를 <b>삭제하시면 혜택은 취소</b>됩니다 (인스타는 6개월 공개 유지)<br>
     · 후기 이벤트와 소개 캐시백은 <b>같은 예약에 중복 적용되지 않아요</b><br>
-    · 캐시백은 촬영 완료 후 <b>익월 10일</b>까지 순차 지급됩니다
+    · 소개 캐시백은 <b>소개받은 분의 촬영이 끝난 뒤</b> 계좌이체로 드려요 (익월 10일까지 순차 지급)
   </div>
 
   <a class="phone" href="tel:010-5767-0195">이안스튜디오 010-5767-0195</a>
@@ -120,16 +120,12 @@
 <script>
 /* ═══ 혜택 숫자 — 여기만 고치면 페이지 전체가 바뀝니다! ═══ */
 const REWARD = {
-  reviewSnap: 10,      // 스냅 후기 → 추가 보정 장수
-  reviewStudio: 5,     // 스튜디오 후기 → 추가 보정 장수
-  referCash: "5만원",  // 소개한 분 캐시백
-  referNew: "5만원"    // 소개받은 분 할인
+  reviewPhotos: 10,    // 후기 이벤트 → 추가 보정 장수 (스냅·스튜디오 동일)
+  referCash: "3만원"   // 소개 리워드 (소개받은 분 촬영 완료 후 계좌이체)
 };
-document.getElementById('revSnap').textContent  = REWARD.reviewSnap;
-document.getElementById('revSnap2').textContent = REWARD.reviewSnap;
-document.getElementById('revStudio').textContent= REWARD.reviewStudio;
+document.getElementById('revSnap').textContent  = REWARD.reviewPhotos;
+document.getElementById('revSnap2').textContent = REWARD.reviewPhotos;
 document.getElementById('refCash').textContent  = REWARD.referCash;
-document.getElementById('refNew').textContent   = REWARD.referNew;
 
 document.getElementById('copyBtn').addEventListener('click', async () => {
   const tags = Array.from(document.querySelectorAll('#tagBox span')).map(s => s.textContent).join(' ');

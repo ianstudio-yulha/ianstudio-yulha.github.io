@@ -128,7 +128,12 @@
         <label class="fl">연락처<span class="req">*</span></label>
         <input type="tel" id="phone" placeholder="010-0000-0000" required>
         <label class="fl">촬영일<span class="req">*</span></label>
-        <input type="date" id="shotDate" required style="margin-bottom:0">
+        <input type="date" id="shotDate" required style="margin-bottom:16px">
+        <label class="fl">지인 소개로 오셨나요? <span style="color:#c4bcb1;font-size:11px">(선택)</span></label>
+        <div class="row2">
+          <div><input type="text" id="referrer" placeholder="소개인 이름"></div>
+          <div><input type="tel" id="referrerPhone" placeholder="소개인 연락처 (선택)"></div>
+        </div>
       </div>
 
       <div class="card">
@@ -223,6 +228,7 @@
       <div class="pdate" id="pDate"></div>
       <div class="pline"></div>
       <div class="pblock"><div class="pt">고객 정보</div><div class="pv" id="pCustomer"></div></div>
+      <div class="pblock" id="pReferBlock" style="display:none"><div class="pt">소개인</div><div class="pv" id="pRefer"></div></div>
       <div class="pblock"><div class="pt">예약 상품</div><div class="pv" id="pProducts"></div></div>
       <div class="pblock"><div class="pt">후기 이벤트 참여</div><div class="pv" id="pPromo"></div></div>
       <div class="pblock" id="pOutcallBlock" style="display:none">
@@ -380,6 +386,7 @@ const G = id => document.getElementById(id);
 G('consentForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const name = G('name').value.trim(), phone = G('phone').value.trim(), shotDate = G('shotDate').value;
+  const referrer = G('referrer').value.trim(), referrerPhone = G('referrerPhone').value.trim();
   if(!name || !phone || !shotDate){ alert('기본 정보를 모두 입력해 주세요.'); return; }
   if(!G('c_privacy').checked){ alert('개인정보 수집·이용에 동의해 주세요.'); return; }
 
@@ -409,6 +416,10 @@ G('consentForm').addEventListener('submit', async (e) => {
   if(snap.length)   ph += '<div style="margin-bottom:6px"><b style="font-size:12.5px;color:#b08d57">스냅</b><br>' + snap.map(tg).join('') + '</div>';
   if(studio.length) ph += '<div><b style="font-size:12.5px;color:#b08d57">스튜디오</b><br>' + studio.map(tg).join('') + '</div>';
   G('pProducts').innerHTML = ph || '<span class="empty">선택한 상품이 없습니다 (상담 후 결정)</span>';
+  if(referrer){
+    G('pReferBlock').style.display = 'block';
+    G('pRefer').textContent = referrer + (referrerPhone ? ' · ' + referrerPhone : '') + ' 님 소개';
+  } else { G('pReferBlock').style.display = 'none'; }
   G('pPromo').innerHTML = promo ? tg('후기 이벤트 참여') + tg('선물 증정') : '<span class="empty">참여하지 않음 (홍보 사용하지 않음)</span>';
   if(outcallOn){
     G('pOutcallBlock').style.display = 'block';
@@ -430,6 +441,7 @@ G('consentForm').addEventListener('submit', async (e) => {
     groom: outcallOn ? (oc.groomName + ' ' + oc.groomPhone) : '',
     bride: outcallOn ? (oc.brideName + ' ' + oc.bridePhone) : '',
     wedding: outcallOn ? (oc.wedDate + ' ' + oc.wedTime) : '',
+    referrer: referrer ? (referrer + (referrerPhone ? ' ' + referrerPhone : '')) : '',
     venue: outcallOn ? (oc.venue + (oc.venueAddr ? ' · ' + oc.venueAddr : '')) : ''
   };
   try{
