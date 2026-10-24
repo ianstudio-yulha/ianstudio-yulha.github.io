@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>후기 · 소개 이벤트 | 이안스튜디오</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="favicon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{font-family:'Noto Serif KR',serif;background:#fdfbf7;background-image:radial-gradient(#e8e2d8 0.9px,#fdfbf7 0.9px);background-size:22px 22px;color:#2f2f2f;line-height:1.75;padding:26px 18px 54px}
+  .wrap{max-width:520px;margin:0 auto}
+  .top{text-align:center;margin-bottom:20px}
+  .toprabbit{width:48px;height:auto;margin:0 auto 8px;display:block}
+  .toplogo{width:180px;max-width:60%;height:auto;display:block;margin:0 auto}
+  .en{font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:.22em;color:#c9b79a;text-align:center;margin-bottom:8px}
+  h1{font-size:21px;font-weight:600;text-align:center;line-height:1.55;margin-bottom:9px;color:#2f2f2f}
+  .sub{font-size:12.5px;color:#9a9086;text-align:center;line-height:1.75;margin-bottom:24px}
+  .sub b{color:#8a7355;font-weight:600}
+  .card{background:#fff;border:1px solid #efe9e0;border-radius:16px;padding:20px 18px;margin-bottom:14px;box-shadow:0 2px 14px rgba(176,141,87,.05)}
+  .lbl{font-size:11px;color:#b08d57;letter-spacing:.16em;margin-bottom:8px;font-weight:600}
+  .big{font-size:19px;font-weight:600;color:#2f2f2f;line-height:1.45}
+  .big em{font-style:normal;color:#b08d57}
+  .desc{font-size:12.5px;color:#8f8679;margin-top:5px;line-height:1.7}
+  .step{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-top:1px dashed #f1e8db;margin-top:2px;font-size:12.5px;color:#5c554c;line-height:1.6}
+  .step:first-of-type{border-top:1px dashed #f1e8db}
+  .step .no{font-family:'Cormorant Garamond',serif;font-size:14px;color:#c9b79a;min-width:16px}
+  a.btn{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 16px;border-radius:12px;text-decoration:none;font-size:13.5px;font-weight:600;margin-bottom:9px;transition:transform .12s}
+  a.btn:active{transform:scale(.985)}
+  a.btn .arr{font-size:12px;opacity:.5;font-weight:400}
+  .b1{background:#03C75A;color:#fff}
+  .b2{background:#2f2f2f;color:#fff}
+  .b3{background:#fff;color:#2f2f2f;border:1px solid #ddd4c6}
+  .b4{background:#fff;color:#8a7355;border:1px solid #f0ddc4}
+  .tags{background:#fdfcfa;border:1px solid #f0eae1;border-radius:12px;padding:12px 13px;font-size:12px;color:#6b6259;line-height:2}
+  button.copy{width:100%;margin-top:10px;padding:12px;border:1px solid #ddd4c6;background:#fff;border-radius:10px;font-family:inherit;font-size:12.5px;color:#5c554c;cursor:pointer}
+  button.copy:active{background:#f7f2ea}
+  .note{font-size:11px;color:#a09889;line-height:1.9;padding:0 4px}
+  .note b{color:#7a7166}
+  .foot{text-align:center;font-size:11px;color:#b5ada2;margin-top:24px;line-height:2}
+  .foot .en2{font-family:'Cormorant Garamond',serif;font-style:italic;letter-spacing:.06em;color:#c9b79a}
+  .phone{display:block;text-align:center;margin-top:12px;font-size:13.5px;color:#5c554c;text-decoration:none;letter-spacing:.04em}
+  .div{height:1px;background:linear-gradient(to right,#ffffff,#e8e0d2,#ffffff);margin:22px 0 18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <img src="images/rabbit_top.png" alt="이안스튜디오" class="toprabbit">
+    <img src="images/logo_ian.png" alt="ian studios" class="toplogo">
+  </div>
+
+  <div class="en">THANK YOU</div>
+  <h1>사진은 잘 받으셨나요?</h1>
+  <div class="sub">
+    후기 한 줄, 혹은 지인 소개로 <b>온라인 혜택</b>을 드려요.<br>
+    실물 배송 없이 <b>파일 · 계좌이체</b>로 바로 챙겨드립니다.
+  </div>
+
+  <!-- ① 후기 이벤트 -->
+  <div class="card">
+    <div class="lbl">REVIEW</div>
+    <div class="big">후기 남기면 <em>추가 보정 <span id="revSnap">10</span>장</em></div>
+    <div class="desc">스튜디오 촬영은 추가 보정 <span id="revStudio">5</span>장 · 원본에서 골라주시면 보정해서 파일로 보내드려요</div>
+    <div class="step"><div class="no">01</div><div>네이버 플레이스 리뷰 · 블로그 후기 · 인스타그램 중 <b>한 곳에 남겨주세요</b></div></div>
+    <div class="step"><div class="no">02</div><div>남긴 후 <b>스튜디오(010-5767-0195)로 알려주세요</b></div></div>
+    <div class="step"><div class="no">03</div><div>원하는 사진 <span id="revSnap2">10</span>장을 골라 보내주시면 <b>3일 안에 보정본 전송</b></div></div>
+  </div>
+
+  <!-- ② 소개 이벤트 -->
+  <div class="card">
+    <div class="lbl">REFERRAL</div>
+    <div class="big">지인 소개하면 <em><span id="refCash">5만원</span> 캐시백</em></div>
+    <div class="desc">소개받고 촬영하신 분께도 <span id="refNew">5만원</span> 할인 — 양쪽 모두 혜택이에요</div>
+    <div class="step"><div class="no">01</div><div>지인에게 <b>이안스튜디오</b>를 소개해 주세요</div></div>
+    <div class="step"><div class="no">02</div><div>예약할 때 <b>“○○님 소개로 왔어요”</b> 한마디만 해주시면 돼요</div></div>
+    <div class="step"><div class="no">03</div><div>촬영이 끝나면 <b>계좌로 캐시백</b> (현금 대신 다음 촬영 할인도 가능!)</div></div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- ③ 후기 남기는 곳 -->
+  <div class="card">
+    <div class="lbl">WHERE</div>
+    <div class="big" style="font-size:15px;margin-bottom:12px">어디에 남기면 되나요?</div>
+    <a class="btn b1" href="https://map.naver.com/p/search/%EC%9D%B4%EC%95%88%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4/place/19375508" target="_blank" rel="noopener">
+      <span>네이버 플레이스 리뷰 쓰기</span><span class="arr">→</span></a>
+    <a class="btn b2" href="https://blog.naver.com/PostWriteForm.naver" target="_blank" rel="noopener">
+      <span>네이버 블로그에 후기 쓰기</span><span class="arr">→</span></a>
+    <a class="btn b3" href="https://www.instagram.com/storywith_ian/" target="_blank" rel="noopener">
+      <span>인스타그램 · @storywith_ian 태그</span><span class="arr">→</span></a>
+    <a class="btn b4" href="tel:010-5767-0195">
+      <span>전화로 알려주기</span><span class="arr">→</span></a>
+  </div>
+
+  <!-- ④ 해시태그 -->
+  <div class="card">
+    <div class="lbl">HASHTAG</div>
+    <div class="tags" id="tagBox"><span>#이안스튜디오</span> <span>#김해사진관</span> <span>#율하사진관</span> <span>#김해가족사진</span> <span>#김해바디프로필</span> <span>#율하스튜디오</span> <span>#스토리위드이안</span> <span>#김해웨딩스냅</span> <span>#김해돌스냅</span> <span>#김해칠순스냅</span></div>
+    <button class="copy" id="copyBtn">해시태그 복사하기</button>
+  </div>
+
+  <div class="note">
+    · 혜택은 <b>온라인으로만</b> 드려요 — 보정본은 파일 전송, 캐시백은 계좌이체 (실물 배송 없음)<br>
+    · 후기를 <b>삭제하시면 혜택은 취소</b>됩니다 (인스타는 6개월 공개 유지)<br>
+    · 후기 이벤트와 소개 캐시백은 <b>같은 예약에 중복 적용되지 않아요</b><br>
+    · 캐시백은 촬영 완료 후 <b>익월 10일</b>까지 순차 지급됩니다
+  </div>
+
+  <a class="phone" href="tel:010-5767-0195">이안스튜디오 010-5767-0195</a>
+
+  <div class="foot">
+    <div class="en2">Always with you</div>
+    김해시 율하2로126번길 22 1층
+  </div>
+</div>
+
+<script>
+/* ═══ 혜택 숫자 — 여기만 고치면 페이지 전체가 바뀝니다! ═══ */
+const REWARD = {
+  reviewSnap: 10,      // 스냅 후기 → 추가 보정 장수
+  reviewStudio: 5,     // 스튜디오 후기 → 추가 보정 장수
+  referCash: "5만원",  // 소개한 분 캐시백
+  referNew: "5만원"    // 소개받은 분 할인
+};
+document.getElementById('revSnap').textContent  = REWARD.reviewSnap;
+document.getElementById('revSnap2').textContent = REWARD.reviewSnap;
+document.getElementById('revStudio').textContent= REWARD.reviewStudio;
+document.getElementById('refCash').textContent  = REWARD.referCash;
+document.getElementById('refNew').textContent   = REWARD.referNew;
+
+document.getElementById('copyBtn').addEventListener('click', async () => {
+  const tags = Array.from(document.querySelectorAll('#tagBox span')).map(s => s.textContent).join(' ');
+  try{
+    await navigator.clipboard.writeText(tags);
+    const b = document.getElementById('copyBtn');
+    b.textContent = '✅ 복사했어요! 인스타에 붙여넣기 해주세요';
+    setTimeout(() => { b.textContent = '해시태그 복사하기'; }, 2600);
+  }catch(e){
+    const box = document.getElementById('tagBox');
+    const r = document.createRange(); r.selectNodeContents(box);
+    const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    document.getElementById('copyBtn').textContent = '해시태그가 선택됐어요 — 길게 눌러 복사해주세요';
+  }
+});
+</script>
+</body>
+</html>
