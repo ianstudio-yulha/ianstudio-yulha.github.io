@@ -227,6 +227,12 @@
     padding: 34px 32px 26px; background: #fff;
     display: flex; flex-direction: column;
   }
+  .price-col { scroll-margin-top: 96px; }          /* 카드에서 가격으로 이동할 때 헤더에 가리지 않게 */
+  .price-col:target { animation: priceFlash 1.4s ease; }
+  @keyframes priceFlash {
+    0%   { box-shadow: 0 0 0 2px rgba(154,139,122,0.55); }
+    100% { box-shadow: 0 0 0 2px rgba(154,139,122,0); }
+  }
   .price-col h3 { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; margin-bottom: 6px; }
   .price-col h3 em.sub { font-size: 0.8rem; color: var(--accent); font-style: normal; font-family: var(--sans); font-weight: 400; }
   .price-item { padding: 15px 0; border-top: 1px solid var(--line); }
@@ -418,37 +424,37 @@
         <p class="num">01</p>
         <h3>가족사진</h3>
         <p>아이의 성장, 가족의 웃음. 시간이 지나도 변치 않는 가장 소중한 기록이에요.</p>
-        <a href="tel:01057670195" class="more">문의하기 →</a>
+        <a href="#price-family" class="more">가격 보기 →</a>
       </div>
       <div class="service">
         <p class="num">02</p>
         <h3>바디프로필</h3>
         <p>노력의 결과를 가장 아름답게. 다이어트와 운동의 결실을 세련되게 담아드려요.</p>
-        <a href="tel:01057670195" class="more">문의하기 →</a>
+        <a href="#price-portrait" class="more">가격 보기 →</a>
       </div>
       <div class="service">
         <p class="num">03</p>
         <h3>증명 · 여권사진</h3>
         <p>어디에 내놔도 자신 있는 증명사진. 1:1 보정으로 가장 자연스러운 얼굴로.</p>
-        <a href="tel:01057670195" class="more">문의하기 →</a>
+        <a href="#price-doc" class="more">가격 보기 →</a>
       </div>
       <div class="service">
         <p class="num">04</p>
         <h3>리마인드웨딩</h3>
         <p>결혼식 날의 설렘을 다시 한번. 부부의 시간을 감성적으로 기록해요.</p>
-        <a href="tel:01057670195" class="more">문의하기 →</a>
+        <a href="#price-portrait" class="more">가격 보기 →</a>
       </div>
       <div class="service">
         <p class="num">05</p>
         <h3>대가족사진</h3>
         <p>모두가 함께한 순간을 한 장의 사진으로. 명절과 기념일에 온 가족이 모여요.</p>
-        <a href="tel:01057670195" class="more">문의하기 →</a>
+        <a href="#price-family" class="more">가격 보기 →</a>
       </div>
       <div class="service">
         <p class="num">06</p>
         <h3>반려동물 · 반려묘</h3>
         <p>네 발 달린 가족도 빼놓을 수 없죠. 아이들과 함께한 특별한 가족사진.</p>
-        <a href="tel:01057670195" class="more">문의하기 →</a>
+        <a href="#price-portrait" class="more">가격 보기 →</a>
       </div>
     </div>
     <div class="snap-banner">
@@ -513,7 +519,7 @@
     <p class="sec-label">PRICING</p>
     <h2 class="sec-title">가격 안내</h2>
     <div class="price-grid">
-      <div class="price-col">
+      <div class="price-col" id="price-family">
         <h3>가족사진 패키지</h3>
         <div class="price-item">
           <div class="p-head"><span>시그니처 <em>평생의 기록</em></span><span class="price">95만원</span></div>
@@ -536,7 +542,7 @@
           <p>촬영 + 수정본 1장 · 인원수에 따라 (2인 4만 · 3인 6만 · 4인 8만)</p>
         </div>
       </div>
-      <div class="price-col">
+      <div class="price-col" id="price-portrait">
         <h3>인물 · 반려 촬영</h3>
         <div class="price-item">
           <div class="p-head"><span>리마인드웨딩 <em>메인액자+원본</em></span><span class="price">450,000원</span></div>
@@ -556,7 +562,7 @@
         </div>
         <p class="price-call">문의 010-5767-0195 · 카카오 오픈채팅</p>
       </div>
-      <div class="price-col">
+      <div class="price-col" id="price-doc">
         <h3>증명 · 문서사진</h3>
         <div class="price-item">
           <div class="p-head"><span>장수사진 <em>11R 액자 포함</em></span><span class="price">90,000원</span></div>
