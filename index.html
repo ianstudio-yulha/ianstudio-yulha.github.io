@@ -235,6 +235,24 @@
   }
   .price-col h3 { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; margin-bottom: 6px; }
   .price-col h3 em.sub { font-size: 0.8rem; color: var(--accent); font-style: normal; font-family: var(--sans); font-weight: 400; }
+
+  /* ---------- 예약 카드(QR) ---------- */
+  .reserve { background: var(--bg-soft); padding: 88px 0; }
+  .reserve-box { display: flex; align-items: center; justify-content: space-between; gap: 56px;
+                 border: 1px solid var(--line); border-radius: 20px; background: #fff; padding: 44px 48px; }
+  .reserve-text { max-width: 560px; }
+  .reserve-text h2 { font-family: var(--serif); font-size: 1.55rem; font-weight: 600; margin: 6px 0 12px; }
+  .reserve-text p.desc { color: var(--ink-soft); font-size: 0.95rem; line-height: 1.8; }
+  .reserve-actions { display: flex; gap: 8px; margin-top: 22px; flex-wrap: wrap; }
+  .reserve-qr { flex-shrink: 0; text-align: center; }
+  .reserve-qr img { width: 240px; height: 240px; display: block; border-radius: 12px; border: 1px solid var(--line); }
+  .reserve-qr figcaption { margin-top: 10px; font-size: 0.8rem; color: var(--accent); letter-spacing: 0.02em; }
+  @media (max-width: 860px) {
+    .reserve { padding: 64px 0; }
+    .reserve-box { flex-direction: column; text-align: center; padding: 30px 24px; gap: 24px; }
+    .reserve-qr { display: none; }        /* 같은 휴대폰으로는 스캔 불가 → 버튼으로 유도 */
+    .reserve-actions { justify-content: center; }
+  }
   .price-item { padding: 15px 0; border-top: 1px solid var(--line); }
   .price-item:first-of-type { border-top: none; }
   .price-item .p-head {
@@ -834,6 +852,28 @@
           </ul>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- 예약 카드 (QR) -->
+<section class="reserve" id="reserve">
+  <div class="container">
+    <div class="reserve-box">
+      <div class="reserve-text">
+        <p class="sec-label">RESERVATION</p>
+        <h2>예약은 카드로, 30초면 끝나요</h2>
+        <p class="desc">상품을 고르고 계약서까지 한 번에 정리됩니다.<br>
+          휴대폰 카메라로 오른쪽 QR을 비추거나, 아래 버튼을 눌러주세요.</p>
+        <div class="reserve-actions">
+          <a href="consent.html" class="btn btn-dark">예약 카드 열기</a>
+          <a href="tel:01057670195" class="btn btn-outline">전화 예약 · 문의</a>
+        </div>
+      </div>
+      <figure class="reserve-qr">
+        <img src="images/reserve-qr.png" alt="이안스튜디오 촬영 예약 카드 QR코드" width="240" height="240" loading="lazy">
+        <figcaption>휴대폰 카메라로 스캔</figcaption>
+      </figure>
     </div>
   </div>
 </section>
