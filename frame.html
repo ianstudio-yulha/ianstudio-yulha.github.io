@@ -130,6 +130,12 @@
       </div>
     </div>
 
+    <div id="prevNav" style="display:none;align-items:center;justify-content:center;gap:10px;margin-top:14px">
+      <button class="btn ghost" id="prevBtn" style="padding:5px 16px;width:auto;flex:0 0 auto;min-width:0">◀</button>
+      <span id="prevIdx" style="font-size:12.5px;color:#8C8175;min-width:150px;text-align:center"></span>
+      <button class="btn ghost" id="nextBtn" style="padding:5px 16px;width:auto;flex:0 0 auto;min-width:0">▶</button>
+    </div>
+
     <canvas id="prev" width="440" height="300"
             style="display:block;margin:16px auto 0;background:#F1EBE1;border:1px solid #E4DACB;border-radius:2px;max-width:100%"></canvas>
     <div id="info"></div>
@@ -185,7 +191,7 @@ const WMCOLORS = {"흰색":"#FFFFFF","검정":"#1A1A1A","골드":"#B08D57"};
 const WMPOS = ["lt","ct","rt","lc","cc","rc","lb","cb","rb"];
 
 const st = {
-  files:[], task:"액자",
+  files:[], task:"액자", idx:0,
   size:"11x14", orient:"가로 고정", mode:"긴 축 꽉", margin:"보통", color:"흰색",
   idSize:"3.5x4.5cm (6장)", idGap:"보통", idBorder:"있음", idColor:"흰색",
   snsRatio:"1:1 (1080)", snsAnchor:"가운데", snsMode:"꽉 채우기 (크롭)", snsColor:"흰색",
@@ -315,7 +321,7 @@ function onTask(){
 function updateInfo(){
   const info=document.getElementById("info");
   if(!st.files.length){ info.textContent=""; info.className=""; schedulePreview(); return; }
-  const im=st.files[0], t=TASKS[st.task];
+  const im=st.files[Math.min(st.idx||0, st.files.length-1)], t=TASKS[st.task];
   let txt="", warn=false;
   if(t==="frame"){
     const L=calcFrameLayout(im.w,im.h,st.size,MARGINS[st.margin],MODES[st.mode],ORIENTS[st.orient]);
@@ -349,7 +355,33 @@ function updateInfo(){
 
 /* ---------- 미리보기 ---------- */
 let prevTimer=null;
+/* 미리보기 넘기기 */
+function updatePrevNav(){
+  const nav=document.getElementById("prevNav"), lab=document.getElementById("prevIdx");
+  if(!nav) return;
+  const n=st.files.length;
+  nav.style.display = (n>1) ? "flex" : "none";
+  if(st.idx>n-1) st.idx=Math.max(0,n-1);
+  if(!n){ lab.textContent=""; return; }
+  const nm=st.files[st.idx].name;
+  lab.textContent=`${st.idx+1} / ${n}  ·  ${nm.length>18?nm.slice(0,16)+"…":nm}`;
+}
+function stepPreview(d){
+  const n=st.files.length;
+  if(n<=1) return;
+  st.idx=((st.idx||0)+d+n)%n;
+  updatePrevNav(); updateInfo(); drawPreview();
+}
+document.getElementById("prevBtn").onclick=()=>stepPreview(-1);
+document.getElementById("nextBtn").onclick=()=>stepPreview(1);
+document.addEventListener("keydown",e=>{
+  if(!st.files.length) return;
+  if(e.key==="ArrowLeft"){ stepPreview(-1); }
+  if(e.key==="ArrowRight"){ stepPreview(1); }
+});
+
 function schedulePreview(){
+  updatePrevNav();
   if(prevTimer) clearTimeout(prevTimer);
   prevTimer=setTimeout(drawPreview, 220);
 }
@@ -364,7 +396,7 @@ function drawPreview(){
     ctx.textAlign="start"; return;
   }
   try{
-    const im=st.files[0];
+    const im=st.files[Math.min(st.idx||0, st.files.length-1)];
     let res;
     if(TASKS[st.task]==="frame") res=renderFrame(im,st);
     else if(TASKS[st.task]==="idphoto") res=renderIdPhoto(im,st);
@@ -420,6 +452,7 @@ async function loadOne(file){
 function fileKey(f){ return f.name+"|"+f.size+"|"+(f.lastModified||0); }
 
 async function addFiles(list){
+  st.idx=0;
   const imgs=list.filter(f=>f.type.startsWith("image/"));
   if(!imgs.length) return;
   const status=document.getElementById("status");
@@ -447,6 +480,7 @@ async function addFiles(list){
     : `${loaded.length}장 추가됨`;
 }
 function renderThumbs(){
+  if(typeof updatePrevNav==="function") updatePrevNav();
   const box=document.getElementById("thumbs"); box.innerHTML="";
   st.files.slice(0,12).forEach(im=>{
     const c=document.createElement("canvas"); c.width=64;c.height=64;
@@ -462,7 +496,7 @@ function renderThumbs(){
 }
 let lastOuts=[];
 const DEFAULTS = {
-  task:"액자", size:"11x14", orient:"가로 고정", mode:"긴 축 꽉", margin:"보통", color:"흰색",
+  idx:0, task:"액자", size:"11x14", orient:"가로 고정", mode:"긴 축 꽉", margin:"보통", color:"흰색",
   idSize:"3.5x4.5cm (6장)", idGap:"보통", idBorder:"있음", idColor:"흰색",
   snsRatio:"1:1 (1080)", snsAnchor:"가운데", snsMode:"꽉 채우기 (크롭)", snsColor:"흰색",
   webSize:"1440", quality:"80% (추천)",
