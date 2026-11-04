@@ -101,6 +101,13 @@
       <div class="sec"><div class="lbl">자르기 기준 <span>— 크롭일 때</span></div><div class="opts" id="snsAnchors"></div></div>
     </div>
 
+    <!-- 웹용 (용량 줄이기) -->
+    <div id="secWeb" class="hidden">
+      <div class="sec"><div class="lbl">웹 크기 <span>— 긴 변 기준으로 축소</span></div><div class="opts" id="webSizes"></div></div>
+      <div class="sec"><div class="lbl">JPEG 품질 <span>— 낮을수록 가벼움</span></div><div class="opts" id="qualities"></div></div>
+      <div class="sec" style="font-size:11.5px;color:#A09885;line-height:1.7">※ 자르지 않고 비율 그대로 줄여요 · 로고/워터마크는 아래에서 설정</div>
+    </div>
+
     <!-- 워터마크 -->
     <div class="sec">
       <div class="lbl">워터마크 <span>— 원하는 위치에</span></div>
@@ -163,7 +170,9 @@ const ORIENTS = {"자동":"auto","가로 고정":"land","세로 고정":"port"};
 const MODES   = {"긴 축 꽉":"long","사방 균일":"all"};
 const MARGINS = {"얇게":3,"보통":5,"두껍게":8};
 const COLORS  = {"흰색":"#FFFFFF","아이보리":"#FDFBF7","차콜":"#2D2D2D"};
-const TASKS   = {"액자":"frame","증명사진":"idphoto","SNS":"sns"};
+const TASKS   = {"액자":"frame","증명사진":"idphoto","SNS":"sns","웹용":"web"};
+const WEBSIZES = {"1080 (인스타)":1080,"1440":1440,"1920":1920,"원본 유지":0};   // 긴 변 기준 축소
+const QUALITIES = {"70% (가볍게)":70,"80% (추천)":80,"90% (고화질)":90};
 const IDSIZES = {"3.5x4.5cm (6장)":[3.5,4.5],"3x4cm (8장)":[3,4]};
 const IDGAPS  = {"좁게":2,"보통":4,"넓게":6};        // mm
 const IDBORDERS = {"있음":"on","없음":"off"};
@@ -180,6 +189,7 @@ const st = {
   size:"11x14", orient:"가로 고정", mode:"긴 축 꽉", margin:"보통", color:"흰색",
   idSize:"3.5x4.5cm (6장)", idGap:"보통", idBorder:"있음", idColor:"흰색",
   snsRatio:"1:1 (1080)", snsAnchor:"가운데", snsMode:"꽉 채우기 (크롭)", snsColor:"흰색",
+  webSize:"1440", quality:"80% (추천)",
   wmUse:"안 함", wmText:"ian studios", wmPos:"rb", wmSize:"보통", wmAlpha:"50%",
   wmColor:"흰색", wmLogo:null
 };
@@ -278,6 +288,8 @@ function refreshUI(){
   chips("snsModes",Object.keys(SNSMODES),"snsMode",updateInfo);
   chips("snsColors",Object.keys(COLORS),"snsColor",updateInfo);
   chips("snsAnchors",Object.keys(ANCHORS),"snsAnchor",updateInfo);
+  chips("webSizes",Object.keys(WEBSIZES),"webSize",updateInfo);
+  chips("qualities",Object.keys(QUALITIES),"quality",updateInfo);
   chips("wmUse",["안 함","사용"],"wmUse",()=>{
     document.getElementById("wmBody").classList.toggle("hidden", st.wmUse==="안 함");
     updateInfo();
@@ -295,6 +307,7 @@ function onTask(){
   document.getElementById("secAlbum").classList.toggle("hidden", t!=="frame");
   document.getElementById("secId").classList.toggle("hidden", t!=="idphoto");
   document.getElementById("secSns").classList.toggle("hidden", t!=="sns");
+  document.getElementById("secWeb").classList.toggle("hidden", t!=="web");
   updateInfo();
 }
 
@@ -315,6 +328,14 @@ function updateInfo(){
     const L=calcIdLayout(st.idSize, IDGAPS[st.idGap]);
     if(L) txt=`→ 4x6인치에 ${L.c}×${L.r} = ${L.c*L.r}장 · 사진 ${(L.pw/DPI*2.54).toFixed(1)}×${(L.ph/DPI*2.54).toFixed(1)}cm · ${L.W>L.H?"가로":"세로"} 판`;
     else { txt="→ 배치 불가 (간격을 줄여보세요)"; warn=true; }
+  }else if(t==="web"){
+    const le=WEBSIZES[st.webSize]||1440;
+    if(le && Math.max(im.w,im.h)>le){
+      const r=le/Math.max(im.w,im.h);
+      txt=`→ 긴 변 ${le}px (${Math.round(im.w*r)}×${Math.round(im.h*r)}) · 품질 ${st.quality} 로 축소`;
+    }else{
+      txt=`→ 원본 크기 유지 (${im.w}×${im.h}px) · 품질 ${st.quality}`;
+    }
   }else{
     const L=calcSnsLayout(im.w,im.h,st.snsRatio,SNSMODES[st.snsMode]);
     const how = (SNSMODES[st.snsMode]==="pad") ? "여백 넣고" : "잘라서";
@@ -347,6 +368,7 @@ function drawPreview(){
     let res;
     if(TASKS[st.task]==="frame") res=renderFrame(im,st);
     else if(TASKS[st.task]==="idphoto") res=renderIdPhoto(im,st);
+    else if(TASKS[st.task]==="web") res=renderWeb(im,st);
     else res=renderSns(im,st);
     const src=res.cv, W=cv.width-16, H=cv.height-16;
     const k=Math.min(W/src.width, H/src.height);
@@ -443,6 +465,7 @@ const DEFAULTS = {
   task:"액자", size:"11x14", orient:"가로 고정", mode:"긴 축 꽉", margin:"보통", color:"흰색",
   idSize:"3.5x4.5cm (6장)", idGap:"보통", idBorder:"있음", idColor:"흰색",
   snsRatio:"1:1 (1080)", snsAnchor:"가운데", snsMode:"꽉 채우기 (크롭)", snsColor:"흰색",
+  webSize:"1440", quality:"80% (추천)",
   wmUse:"안 함", wmText:"ian studios", wmPos:"rb", wmSize:"보통", wmAlpha:"50%",
   wmColor:"흰색", wmLogo:null
 };
@@ -562,7 +585,22 @@ function renderSns(im,s){
   return {cv,label:`SNS_${rw}x${rh}`};
 }
 
-function canvasToJPEG(cv){ return new Promise(res=>cv.toBlob(b=>res(b),"image/jpeg",0.95)); }
+/* 웹용: 용량 줄이기 (자르지 않고 긴 변 기준 축소) */
+function renderWeb(im,s){
+  const le=WEBSIZES[s.webSize]||1440;
+  let w=im.w, h=im.h;
+  if(le && Math.max(w,h)>le){
+    const r=le/Math.max(w,h);
+    w=Math.max(1,Math.round(w*r)); h=Math.max(1,Math.round(h*r));
+  }
+  const cv=document.createElement("canvas"); cv.width=w; cv.height=h;
+  const ctx=cv.getContext("2d"); ctx.imageSmoothingQuality="high";
+  ctx.drawImage(im.bmp,0,0,w,h);
+  drawWatermark(ctx,w,h,s);
+  return {cv,label:(le?`웹${le}`:"웹원본")};
+}
+
+function canvasToJPEG(cv, q){ return new Promise(res=>cv.toBlob(b=>res(b),"image/jpeg", q||0.95)); }
 async function patchDPI(blob,dpi){
   const buf=new Uint8Array(await blob.arrayBuffer());
   for(let i=2;i<buf.length-16;i++){
@@ -626,9 +664,12 @@ document.getElementById("go").onclick=async ()=>{
     let res;
     if(TASKS[s.task]==="frame") res=renderFrame(im,s);
     else if(TASKS[s.task]==="idphoto") res=renderIdPhoto(im,s);
+    else if(TASKS[s.task]==="web") res=renderWeb(im,s);
     else res=renderSns(im,s);
-    const blob=await canvasToJPEG(res.cv);
-    const b300=await patchDPI(blob,DPI);
+    const isWeb = (TASKS[s.task]==="web");
+    const q = isWeb ? (QUALITIES[s.quality]||80)/100 : 0.95;
+    const blob=await canvasToJPEG(res.cv, q);
+    const b300=await patchDPI(blob, isWeb?72:DPI);
     outs.push({name:`${im.name}_[${res.label}].jpg`,
                data:new Uint8Array(await b300.arrayBuffer()), blob:b300});
   }
