@@ -118,6 +118,19 @@
       <div class="sub">촬영 정보와 안내를 함께 확인해 주세요</div>
     </div>
 
+
+    <!-- 촬영 후 혜택 안내 -->
+    <div style="background:#fff;border:1px solid #efe3d2;border-radius:16px;padding:16px 17px;margin-bottom:14px;box-shadow:0 2px 12px rgba(176,141,87,.05)">
+      <div style="font-size:10.5px;letter-spacing:.2em;color:#b08d57;font-weight:600;margin-bottom:7px">AFTER SHOOTING</div>
+      <div style="font-family:'Noto Serif KR',serif;font-size:15px;font-weight:600;color:#2f2f2f;margin-bottom:8px">촬영 후 <span style="color:#b08d57">현금 페이백</span> 챙겨가세요</div>
+      <div style="font-size:12px;color:#6b6259;line-height:1.85">
+        · 후기 남기면 <b>3만원</b> 페이백 (스냅) / 추가 보정 <b>10장</b> (스튜디오)<br>
+        · 짝꿍과 함께 예약하면 <b>2명 각 2만원 · 3명 각 3만원</b><br>
+        <span style="color:#9a9086">짝꿍코드 = 이름 + 전화번호 뒤 4자리 (예: 홍길동1124)</span>
+      </div>
+      <a href="review.html" style="display:inline-block;margin-top:10px;font-size:12.5px;color:#8a7355;font-weight:600;text-decoration:none">이벤트 자세히 보기 →</a>
+    </div>
+
     <form id="consentForm">
       <div class="card">
         <div class="secnum">01</div>
@@ -129,11 +142,6 @@
         <input type="tel" id="phone" placeholder="010-0000-0000" required>
         <label class="fl">촬영일<span class="req">*</span></label>
         <input type="date" id="shotDate" required style="margin-bottom:16px">
-        <label class="fl">지인 소개로 오셨나요? <span style="color:#c4bcb1;font-size:11px">(선택)</span></label>
-        <div class="row2">
-          <div><input type="text" id="referrer" placeholder="소개인 이름"></div>
-          <div><input type="tel" id="referrerPhone" placeholder="소개인 연락처 (선택)"></div>
-        </div>
       </div>
 
       <div class="card">
@@ -182,8 +190,8 @@
       <div class="card">
         <div class="secnum">04</div>
         <div class="sectitle">남기실 말씀</div>
-        <div class="sechint">기타 문의나 요청사항을 자유롭게 적어주세요</div>
-        <textarea id="memo" placeholder="예: 오전 촬영 희망 / 액자 색상은 밝은 톤으로 / 주차 문의드려요"></textarea>
+        <div class="sechint">기타 문의나 요청사항을 자유롭게 적어주세요<br><b style="color:#b08d57">짝꿍 이벤트 참여 시</b> 짝꿍코드(이름+전화 뒤4자리)를 적어주시면 확인이 빨라요</div>
+        <textarea id="memo" placeholder="예: 오전 촬영 희망 / 액자 색상은 밝은 톤으로 / 짝꿍코드: 홍길동1124"></textarea>
       </div>
 
       <div class="card">
@@ -228,7 +236,6 @@
       <div class="pdate" id="pDate"></div>
       <div class="pline"></div>
       <div class="pblock"><div class="pt">고객 정보</div><div class="pv" id="pCustomer"></div></div>
-      <div class="pblock" id="pReferBlock" style="display:none"><div class="pt">소개인</div><div class="pv" id="pRefer"></div></div>
       <div class="pblock"><div class="pt">예약 상품</div><div class="pv" id="pProducts"></div></div>
       <div class="pblock"><div class="pt">후기 이벤트 참여</div><div class="pv" id="pPromo"></div></div>
       <div class="pblock" id="pOutcallBlock" style="display:none">
@@ -386,7 +393,7 @@ const G = id => document.getElementById(id);
 G('consentForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const name = G('name').value.trim(), phone = G('phone').value.trim(), shotDate = G('shotDate').value;
-  const referrer = G('referrer').value.trim(), referrerPhone = G('referrerPhone').value.trim();
+  const referrer = '', referrerPhone = '';   // 지인소개 필드 제거됨 (2026-11)
   if(!name || !phone || !shotDate){ alert('기본 정보를 모두 입력해 주세요.'); return; }
   if(!G('c_privacy').checked){ alert('개인정보 수집·이용에 동의해 주세요.'); return; }
 
@@ -416,10 +423,6 @@ G('consentForm').addEventListener('submit', async (e) => {
   if(snap.length)   ph += '<div style="margin-bottom:6px"><b style="font-size:12.5px;color:#b08d57">스냅</b><br>' + snap.map(tg).join('') + '</div>';
   if(studio.length) ph += '<div><b style="font-size:12.5px;color:#b08d57">스튜디오</b><br>' + studio.map(tg).join('') + '</div>';
   G('pProducts').innerHTML = ph || '<span class="empty">선택한 상품이 없습니다 (상담 후 결정)</span>';
-  if(referrer){
-    G('pReferBlock').style.display = 'block';
-    G('pRefer').textContent = referrer + (referrerPhone ? ' · ' + referrerPhone : '') + ' 님 소개';
-  } else { G('pReferBlock').style.display = 'none'; }
   G('pPromo').innerHTML = promo ? tg('후기 이벤트 참여') + tg('선물 증정') : '<span class="empty">참여하지 않음 (홍보 사용하지 않음)</span>';
   if(outcallOn){
     G('pOutcallBlock').style.display = 'block';

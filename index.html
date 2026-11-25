@@ -853,6 +853,36 @@
         </div>
       </div>
     </div>
+
+    <!-- 촬영 후 혜택 (이벤트 진입점) -->
+    <style>
+      .ev{margin:34px auto 0;max-width:1000px;background:#fff;border:1px solid #efe3d2;border-radius:18px;
+          padding:26px 26px 22px;box-shadow:0 6px 22px rgba(176,141,87,.07)}
+      .ev-label{font-size:11px;letter-spacing:.22em;color:#b08d57;font-weight:600;margin-bottom:8px}
+      .ev h3{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:600;color:#2f2f2f;margin:0 0 6px}
+      .ev h3 em{font-style:normal;color:#b08d57}
+      .ev p.ev-sub{font-size:13.5px;color:#8c8479;margin:0 0 18px;line-height:1.7}
+      .ev-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:18px}
+      .ev-item{background:#fdfaf6;border:1px solid #f2e7d8;border-radius:12px;padding:14px 14px 12px}
+      .ev-item b{display:block;font-size:14px;color:#2f2f2f;margin-bottom:4px}
+      .ev-item span{font-size:12px;color:#948b7f;line-height:1.6;display:block}
+      .ev-item i{display:inline-block;font-style:normal;font-size:11px;color:#b08d57;letter-spacing:.1em;margin-bottom:6px}
+      .ev-btn{display:inline-flex;align-items:center;gap:8px;background:#2f2f2f;color:#fff;text-decoration:none;
+              padding:13px 20px;border-radius:10px;font-size:13.5px;font-weight:600}
+      .ev-btn:hover{background:#3d3d3d}
+      @media(max-width:720px){.ev{padding:22px 18px 18px;border-radius:14px}.ev-grid{grid-template-columns:1fr;gap:9px}
+        .ev h3{font-size:19px}.ev-btn{width:100%;justify-content:center}}
+    </style>
+    <div class="ev">
+      <p class="ev-label">AFTER SHOOTING</p>
+      <h3>촬영 후엔 <em>3만원 페이백</em>까지 챙기세요</h3>
+      <p class="ev-sub">후기 한 줄, 혹은 짝꿍과 함께 예약 — 둘 중 하나만 해도 계좌로 바로 보내드려요.</p>
+      <div class="ev-grid">
+        <div class="ev-item"><i>REVIEW</i><b>후기 남기면 3만원</b><span>블로그 · 인스타 · 네이버 플레이스 어디든 한 곳에 남기면 페이백</span></div>
+        <div class="ev-item"><i>BUDDY</i><b>짝꿍과 함께 예약</b><span>2명이면 각 2만원 · 3명이면 각 3만원<br>짝꿍코드 = 이름 + 전화번호 뒤 4자리 (예: 홍길동1124)</span></div>
+      </div>
+      <a class="ev-btn" href="review.html">이벤트 자세히 보기 →</a>
+    </div>
   </div>
 </section>
 
