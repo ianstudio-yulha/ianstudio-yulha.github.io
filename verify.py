@@ -54,11 +54,15 @@ def build_checks(idx):
     # ---------- 서비스 카드 → 가격 이동 ----------
     ctas = re.findall(r'class="service".*?</div>', idx, re.S)
     hrefs = re.findall(r'class="more">가격 보기 →', idx)
-    check(BOTH, "서비스 카드 12개(스튜디오6+스냅6)가 '가격 보기'", len(hrefs) == 12, "%d개" % len(hrefs))
+    check(BOTH, "서비스 카드 11개(스튜디오5+스냅6)가 '가격 보기'", len(hrefs) == 11, "%d개" % len(hrefs))
+    check(BOTH, "대가족사진 카드 제거됨", '<h3>대가족사진</h3>' not in idx)
+    nums = re.findall(r'<p class="num">(\d+)</p>', idx)
+    check(BOTH, "카드 번호 01~11 연속", nums == ["%02d" % i for i in range(1, 12)], ",".join(nums))
+    check(BOTH, "카드별 항목 필터(data-item) 3개", idx.count('data-item=') == 3, "%d개" % idx.count('data-item='))
     check(BOTH, "문의하기 카드 링크 없음", 'class="more">문의하기' not in idx)
     # 가격 모달(바로 뜨는 가격표)
     check(BOTH, "가격 시트 모달 존재", 'id="priceSheet"' in idx and 'id="psheetBody"' in idx)
-    check(BOTH, "가격 버튼 12개에 data-price 연결", idx.count('data-price=') == 12, "%d개" % idx.count('data-price='))
+    check(BOTH, "가격 버튼 11개에 data-price 연결", idx.count('data-price=') == 11, "%d개" % idx.count('data-price='))
     check(BOTH, "모달 닫기 버튼(✕)", 'data-close' in idx)
     for k in ("family", "portrait", "doc", "snap:wedding-snap", "snap:dol", "snap:chilsun", "snap:iphone"):
         check(BOTH, "data-price=%s 존재" % k, 'data-price="%s"' % k in idx)
