@@ -363,6 +363,35 @@
     .nav .cta { padding: 8px 14px; font-size: 0.8rem; }
     .sec-title { font-size: 1.55rem; }
   }
+
+  /* ── 서비스 서브 타이틀 ── */
+  .svc-sub{font-size:12px;letter-spacing:.22em;color:#b08d57;font-weight:600;margin:40px 0 18px;text-align:center}
+  .svc-sub::before,.svc-sub::after{content:"";display:inline-block;width:34px;height:1px;background:#e8dfd2;vertical-align:middle;margin:0 12px}
+
+  /* ── 가격 시트(모달) ── */
+  .psheet{position:fixed;inset:0;z-index:1200;display:none}
+  .psheet.open{display:block}
+  .psheet-bg{position:absolute;inset:0;background:rgba(24,20,16,.45)}
+  .psheet-inner{position:absolute;left:0;right:0;bottom:0;max-height:84vh;background:#fdfbf7;
+    border-radius:22px 22px 0 0;box-shadow:0 -8px 40px rgba(0,0,0,.18);display:flex;flex-direction:column;
+    transform:translateY(100%);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+  .psheet.open .psheet-inner{transform:translateY(0)}
+  .psheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:18px 20px 12px;border-bottom:1px solid #efe6da}
+  .psheet-head h3{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:600;color:#2f2f2f}
+  .psheet-x{border:0;background:#f4ece1;width:32px;height:32px;border-radius:50%;font-size:13px;
+    color:#7a6c5c;cursor:pointer;line-height:1}
+  .psheet-body{overflow-y:auto;padding:16px 18px 6px;-webkit-overflow-scrolling:touch}
+  .psheet-body .price-col{width:100%}
+  .psheet-body .price-col h3{font-size:15px;margin-bottom:10px}
+  .psheet-more{display:block;text-align:center;padding:14px;margin:6px 18px 20px;border-radius:10px;
+    background:#2f2f2f;color:#fff;text-decoration:none;font-size:13px;font-weight:600}
+  body.psheet-lock{overflow:hidden}
+  @media(min-width:900px){
+    .psheet-inner{left:50%;right:auto;bottom:auto;top:50%;width:520px;max-height:80vh;border-radius:18px;
+      transform:translate(-50%,-46%);opacity:0;transition:transform .22s ease,opacity .22s ease}
+    .psheet.open .psheet-inner{transform:translate(-50%,-50%);opacity:1}
+  }
 </style>
 </head>
 <body>
@@ -445,37 +474,77 @@
         <p class="num">01</p>
         <h3>가족사진</h3>
         <p>아이의 성장, 가족의 웃음. 시간이 지나도 변치 않는 가장 소중한 기록이에요.</p>
-        <a href="#price-family" class="more">가격 보기 →</a>
+        <a href="#price-family" data-price="family" data-title="가족사진" class="more">가격 보기 →</a>
       </div>
       <div class="service">
         <p class="num">02</p>
         <h3>바디프로필</h3>
         <p>노력의 결과를 가장 아름답게. 다이어트와 운동의 결실을 세련되게 담아드려요.</p>
-        <a href="#price-portrait" class="more">가격 보기 →</a>
+        <a href="#price-portrait" data-price="portrait" data-title="바디프로필" class="more">가격 보기 →</a>
       </div>
       <div class="service">
         <p class="num">03</p>
         <h3>증명 · 여권사진</h3>
         <p>어디에 내놔도 자신 있는 증명사진. 1:1 보정으로 가장 자연스러운 얼굴로.</p>
-        <a href="#price-doc" class="more">가격 보기 →</a>
+        <a href="#price-doc" data-price="doc" data-title="증명 · 여권사진" class="more">가격 보기 →</a>
       </div>
       <div class="service">
         <p class="num">04</p>
         <h3>리마인드웨딩</h3>
         <p>결혼식 날의 설렘을 다시 한번. 부부의 시간을 감성적으로 기록해요.</p>
-        <a href="#price-portrait" class="more">가격 보기 →</a>
+        <a href="#price-portrait" data-price="portrait" data-title="리마인드웨딩" class="more">가격 보기 →</a>
       </div>
       <div class="service">
         <p class="num">05</p>
         <h3>대가족사진</h3>
         <p>모두가 함께한 순간을 한 장의 사진으로. 명절과 기념일에 온 가족이 모여요.</p>
-        <a href="#price-family" class="more">가격 보기 →</a>
+        <a href="#price-family" data-price="family" data-title="대가족사진" class="more">가격 보기 →</a>
       </div>
       <div class="service">
         <p class="num">06</p>
         <h3>반려동물 · 반려묘</h3>
         <p>네 발 달린 가족도 빼놓을 수 없죠. 아이들과 함께한 특별한 가족사진.</p>
-        <a href="#price-portrait" class="more">가격 보기 →</a>
+        <a href="#price-portrait" data-price="portrait" data-title="반려동물 · 반려묘" class="more">가격 보기 →</a>
+      </div>
+    </div>
+
+    <p class="svc-sub">SNAP — 출장 촬영 (창원 · 진해 · 밀양)</p>
+    <div class="services-grid">
+      <div class="service">
+        <p class="num">07</p>
+        <h3>웨딩스냅</h3>
+        <p>예식 당일의 설렘을 현장에서. 신부 대기실부터 폐백까지 담아드려요.</p>
+        <a href="#wedding-snap" data-price="snap:wedding-snap" data-title="웨딩스냅" class="more">가격 보기 →</a>
+      </div>
+      <div class="service">
+        <p class="num">08</p>
+        <h3>웨딩영상</h3>
+        <p>사진에 담기지 않는 목소리와 움직임까지. 하이라이트부터 풀영상까지.</p>
+        <a href="#wedding-film" data-price="snap:wedding-film" data-title="웨딩영상" class="more">가격 보기 →</a>
+      </div>
+      <div class="service">
+        <p class="num">09</p>
+        <h3>웨딩 패키지</h3>
+        <p>스냅과 영상을 함께. 준비부터 진행까지 한 번에 정리해 드려요.</p>
+        <a href="#wedding-package" data-price="snap:wedding-package" data-title="웨딩 패키지" class="more">가격 보기 →</a>
+      </div>
+      <div class="service">
+        <p class="num">10</p>
+        <h3>돌스냅</h3>
+        <p>첫 생일의 순간들. 행사 전부터 담아 여유롭게 기록해요.</p>
+        <a href="#dol" data-price="snap:dol" data-title="돌스냅" class="more">가격 보기 →</a>
+      </div>
+      <div class="service">
+        <p class="num">11</p>
+        <h3>칠순 · 팔순스냅</h3>
+        <p>부모님의 일흔·여든을 온 가족이 함께. 감사의 마음을 사진으로.</p>
+        <a href="#chilsun" data-price="snap:chilsun" data-title="칠순 · 팔순스냅" class="more">가격 보기 →</a>
+      </div>
+      <div class="service">
+        <p class="num">12</p>
+        <h3>아이폰스냅</h3>
+        <p>내추럴한 감성 그대로. 가볍게, 하지만 놓치고 싶지 않은 순간.</p>
+        <a href="#iphone" data-price="snap:iphone" data-title="아이폰스냅" class="more">가격 보기 →</a>
       </div>
     </div>
     <div class="snap-banner">
@@ -1038,5 +1107,59 @@
   loadGallery('family');
 </script>
 
+
+<!-- 가격 시트 -->
+<div class="psheet" id="priceSheet">
+  <div class="psheet-bg" data-close></div>
+  <div class="psheet-inner" role="dialog" aria-modal="true" aria-labelledby="psheetTitle">
+    <div class="psheet-head">
+      <h3 id="psheetTitle">가격 안내</h3>
+      <button class="psheet-x" data-close aria-label="닫기">✕</button>
+    </div>
+    <div class="psheet-body" id="psheetBody"></div>
+    <a class="psheet-more" id="psheetMore" href="#pricing">전체 가격표 보기</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  const SRC={ family:{sel:'#price-family'}, portrait:{sel:'#price-portrait'}, doc:{sel:'#price-doc'},
+    'snap:wedding-snap':{sel:'#wedding-snap'}, 'snap:wedding-film':{sel:'#wedding-film'},
+    'snap:wedding-package':{sel:'#wedding-package'}, 'snap:dol':{sel:'#dol'},
+    'snap:chilsun':{sel:'#chilsun'}, 'snap:iphone':{sel:'#iphone'} };
+  const sheet=document.getElementById('priceSheet'),
+        body=document.getElementById('psheetBody'),
+        title=document.getElementById('psheetTitle'),
+        more=document.getElementById('psheetMore');
+
+  function open(key,name){
+    const cfg=SRC[key]; if(!cfg) return;
+    const src=document.querySelector(cfg.sel); if(!src) return;
+    const clone=src.cloneNode(true);
+    clone.removeAttribute('id');
+    clone.querySelectorAll('[id]').forEach(n=>n.removeAttribute('id'));
+    clone.style.display='block';
+    body.innerHTML='';
+    body.appendChild(clone);
+    const h=clone.querySelector('h3');
+    title.textContent = name || (h ? h.textContent.trim() : '가격 안내');
+    more.href = cfg.sel;
+    sheet.classList.add('open');
+    document.body.classList.add('psheet-lock');
+    body.scrollTop=0;
+  }
+  function close(){
+    sheet.classList.remove('open');
+    document.body.classList.remove('psheet-lock');
+  }
+  document.querySelectorAll('[data-price]').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); open(a.dataset.price, a.dataset.title); });
+  });
+  sheet.addEventListener('click', function(e){
+    if(e.target.hasAttribute('data-close') || e.target.closest('[data-close]')) close();
+  });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+})();
+</script>
 </body>
 </html>
