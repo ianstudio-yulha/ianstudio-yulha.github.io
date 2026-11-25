@@ -34,7 +34,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&family=Hahmlet:wght@400;500;600&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #ffffff;
@@ -365,8 +365,12 @@
   }
 
   /* ── 서비스 서브 타이틀 ── */
-  .svc-sub{font-size:12px;letter-spacing:.22em;color:#b08d57;font-weight:600;margin:40px 0 18px;text-align:center}
-  .svc-sub::before,.svc-sub::after{content:"";display:inline-block;width:34px;height:1px;background:#e8dfd2;vertical-align:middle;margin:0 12px}
+  .svc-sub{display:flex;align-items:center;justify-content:center;gap:14px;margin:46px 0 22px;
+    font-family:'Hahmlet','Noto Serif KR',serif;font-size:19px;font-weight:500;letter-spacing:.1em;color:#332c25}
+  .svc-sub .en{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;letter-spacing:.26em;color:#b08d57}
+  .svc-sub .dash{color:#d9c9b4;font-weight:400}
+  .svc-sub::before,.svc-sub::after{content:"";width:46px;height:1px;background:#e2d5c4}
+  @media(max-width:640px){.svc-sub{font-size:17px;gap:10px;margin:34px 0 18px}.svc-sub .en{font-size:19px}}
 
   /* ── 가격 시트(모달) ── */
   .psheet{position:fixed;inset:0;z-index:1200;display:none}
@@ -502,7 +506,7 @@
       </div>
     </div>
 
-    <p class="svc-sub">SNAP — 출장 촬영 (창원 · 진해 · 밀양)</p>
+    <p class="svc-sub"><span class="en">SNAP</span><span class="dash">—</span><span>출장 촬영</span></p>
     <div class="services-grid">
       <div class="service">
         <p class="num">06</p>
@@ -680,7 +684,7 @@
   <div class="container">
     <p class="sec-label">SNAP PRICING — @storywith_ian</p>
     <h2 class="sec-title">스냅 상품 안내</h2>
-    <p class="snap-area">출장 촬영 지역 <b>창원 · 진해 · 밀양</b> <span>(김해·부산은 일정 협의 후 가능)</span></p>
+    <p class="snap-area">출장 촬영 · 지역 상관없이 상담 가능 <span>(일정만 맞으면 어디든 갑니다)</span></p>
     <div class="tabs">
       <button class="tab active" data-panel="wedding-snap">웨딩스냅</button>
       <button class="tab" data-panel="wedding-film">웨딩영상</button>
